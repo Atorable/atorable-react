@@ -9,7 +9,7 @@ import WebTorrent, { Torrent } from 'webtorrent'
 
 export const getTorrent = (
   magnetURI: string,
-  client: any,
+  client: WebTorrent.Instance,
   manageFile: (file: WebTorrent.TorrentFile) => void
 ) => {
   let torrent = client.get(magnetURI)
@@ -18,7 +18,7 @@ export const getTorrent = (
       manageTorrent(torrent, manageFile)
     } else {
       client.on('torrent', function (t: Torrent) {
-        if (torrent.infoHash === t.infoHash) {
+        if (torrent?.infoHash === t.infoHash) {
           manageTorrent(t, manageFile)
         }
       })

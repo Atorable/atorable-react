@@ -16,11 +16,10 @@ npm install --save atorable-react
 import React, { Component } from 'react'
 
 import MyComponent from 'atorable-react'
-import 'atorable-react/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <WebTorrentImg />
   }
 }
 ```
