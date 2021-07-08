@@ -19,7 +19,7 @@ export const ImgATor = (props: any) => {
     }
 
   useEffect(() => {
-    GetTorrent(props.magnetLink.default, manageFile)
+    GetTorrent(props.magnetLink, manageFile)
     return () => {}
   }, [])
   return (
@@ -50,7 +50,7 @@ export const VidATor = (props: any) => {
     }
 
   useEffect(() => {
-    GetTorrent(props.magnetLink.default, manageFile)
+    GetTorrent(props.magnetLink, manageFile)
     return () => {}
   }, [])
   return (
@@ -91,7 +91,7 @@ export const VidStrmATor = (props: any) => {
         console.log('New DOM node with the content', elem)
       })
     }
-    GetTorrent(props.magnetLink.default, manageFile)
+    GetTorrent(props.magnetLink, manageFile)
     return () => {}
   }, [])
   return (
@@ -149,7 +149,7 @@ export const VidStrmATor = (props: any) => {
 //         console.log('New DOM node with the content', elem)
 //       })
 //     }
-//     GetTorrent(props.magnetLink.default, manageFile)
+//     GetTorrent(props.magnetLink, manageFile)
 //     return () => {}
 //   }, [])
 //   return (
@@ -179,7 +179,7 @@ export const VidStrmATor = (props: any) => {
 //         // videostream.detailedError will often have a more detailed error message
 //       })
 //     }
-//     GetTorrent(props.magnetLink.default, manageFile)
+//     GetTorrent(props.magnetLink, manageFile)
 //     return () => {}
 //   }, [])
 //   return (

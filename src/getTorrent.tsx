@@ -13,9 +13,12 @@ client.on('error', function (t) {
 })
 
 export const GetTorrent = (
-  magnetURI: string,
+  magnetURI: string | { default: string },
   manageFile: (file: WebTorrent.TorrentFile) => void
 ) => {
+  if (typeof magnetURI !== 'string') {
+    magnetURI = magnetURI.default
+  }
   let torrentCheck = client.get(magnetURI)
   if (torrentCheck) {
     let torrent = torrentCheck

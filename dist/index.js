@@ -8,6 +8,10 @@ client.on('error', function (t) {
   console.log('err', t);
 });
 var GetTorrent = function GetTorrent(magnetURI, manageFile) {
+  if (typeof magnetURI !== 'string') {
+    magnetURI = magnetURI["default"];
+  }
+
   var torrentCheck = client.get(magnetURI);
 
   if (torrentCheck) {
@@ -50,7 +54,7 @@ var ImgATor = function ImgATor(props) {
   };
 
   React.useEffect(function () {
-    GetTorrent(props.magnetLink["default"], manageFile);
+    GetTorrent(props.magnetLink, manageFile);
     return function () {};
   }, []);
   return React.createElement(React.Fragment, null, React.createElement("img", {
@@ -80,7 +84,7 @@ var VidATor = function VidATor(props) {
   };
 
   React.useEffect(function () {
-    GetTorrent(props.magnetLink["default"], manageFile);
+    GetTorrent(props.magnetLink, manageFile);
     return function () {};
   }, []);
   return React.createElement(React.Fragment, null, urlState ? React.createElement("p", {
@@ -118,7 +122,7 @@ var VidStrmATor = function VidStrmATor(props) {
       });
     };
 
-    GetTorrent(props.magnetLink["default"], manageFile);
+    GetTorrent(props.magnetLink, manageFile);
     return function () {};
   }, []);
   return React.createElement(React.Fragment, null, React.createElement("video", {

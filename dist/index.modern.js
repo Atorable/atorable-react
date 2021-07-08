@@ -1,15 +1,19 @@
 import { useState, useEffect, createElement, Fragment, useRef } from 'react';
 import WebTorrent from 'webtorrent';
 
-const client = new WebTorrent();
+var client = new WebTorrent();
 client.on('error', function (t) {
   console.log('err', t);
 });
-const GetTorrent = (magnetURI, manageFile) => {
-  let torrentCheck = client.get(magnetURI);
+var GetTorrent = function GetTorrent(magnetURI, manageFile) {
+  if (typeof magnetURI !== 'string') {
+    magnetURI = magnetURI["default"];
+  }
+
+  var torrentCheck = client.get(magnetURI);
 
   if (torrentCheck) {
-    let torrent = torrentCheck;
+    var torrent = torrentCheck;
 
     if (torrent.name) {
       manageTorrent(torrent, manageFile);
@@ -26,26 +30,30 @@ const GetTorrent = (magnetURI, manageFile) => {
     });
   }
 };
-const manageTorrent = (torrent, manageFile) => {
-  torrent.files.forEach(file => {
+var manageTorrent = function manageTorrent(torrent, manageFile) {
+  torrent.files.forEach(function (file) {
     manageFile(file);
   });
 };
 
-const ImgATor = props => {
-  let [fileState, updateFile] = useState(),
-      [urlState, updateUrl] = useState(),
-      manageFile = file => {
+var ImgATor = function ImgATor(props) {
+  var _useState = useState(),
+      fileState = _useState[0],
+      updateFile = _useState[1],
+      _useState2 = useState(),
+      urlState = _useState2[0],
+      updateUrl = _useState2[1],
+      manageFile = function manageFile(file) {
     updateFile(file);
-    file.getBlobURL((err, url) => {
+    file.getBlobURL(function (err, url) {
       if (err) throw err;
       updateUrl(url);
     });
   };
 
-  useEffect(() => {
-    GetTorrent(props.magnetLink.default, manageFile);
-    return () => {};
+  useEffect(function () {
+    GetTorrent(props.magnetLink, manageFile);
+    return function () {};
   }, []);
   return createElement(Fragment, null, createElement("img", {
     src: urlState,
@@ -56,22 +64,26 @@ const ImgATor = props => {
     style: props.style
   }));
 };
-const VidATor = props => {
-  const videoElement = useRef(null);
+var VidATor = function VidATor(props) {
+  var videoElement = useRef(null);
 
-  let [fileState, updateFile] = useState(),
-      [urlState, updateUrl] = useState(),
-      manageFile = file => {
+  var _useState3 = useState(),
+      fileState = _useState3[0],
+      updateFile = _useState3[1],
+      _useState4 = useState(),
+      urlState = _useState4[0],
+      updateUrl = _useState4[1],
+      manageFile = function manageFile(file) {
     updateFile(file);
-    file.getBlobURL((err, url) => {
+    file.getBlobURL(function (err, url) {
       if (err) throw err;
       updateUrl(url);
     });
   };
 
-  useEffect(() => {
-    GetTorrent(props.magnetLink.default, manageFile);
-    return () => {};
+  useEffect(function () {
+    GetTorrent(props.magnetLink, manageFile);
+    return function () {};
   }, []);
   return createElement(Fragment, null, urlState ? createElement("p", {
     style: {
@@ -93,23 +105,23 @@ const VidATor = props => {
     type: 'video/mp4'
   }), "Your browser does not support the video tag.", fileState === null || fileState === void 0 ? void 0 : fileState.name));
 };
-const VidStrmATor = props => {
-  const videoElement = useRef(null);
-  useEffect(() => {
-    const opts = {
+var VidStrmATor = function VidStrmATor(props) {
+  var videoElement = useRef(null);
+  useEffect(function () {
+    var opts = {
       autoplay: props.autoplay,
       muted: true
     };
 
-    let manageFile = file => {
+    var manageFile = function manageFile(file) {
       file.renderTo(videoElement.current, opts, function (err, elem) {
         if (err) throw err;
         console.log('New DOM node with the content', elem);
       });
     };
 
-    GetTorrent(props.magnetLink.default, manageFile);
-    return () => {};
+    GetTorrent(props.magnetLink, manageFile);
+    return function () {};
   }, []);
   return createElement(Fragment, null, createElement("video", {
     width: props.width,
