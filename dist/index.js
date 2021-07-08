@@ -116,10 +116,12 @@ var VidStrmATor = function VidStrmATor(props) {
     };
 
     var manageFile = function manageFile(file) {
-      file.renderTo(videoElement.current, opts, function (err, elem) {
-        if (err) throw err;
-        console.log('New DOM node with the content', elem);
-      });
+      if (file.name.includes('.mp4')) {
+        file.renderTo(videoElement.current, opts, function (err, elem) {
+          if (err) throw err;
+          console.log('New DOM node with the content', elem);
+        });
+      }
     };
 
     GetTorrent(props.magnetLink, manageFile);

@@ -6,6 +6,8 @@ import { Fragment, useEffect, useState, useRef } from 'react'
 import WebTorrent from 'webtorrent'
 import { GetTorrent } from './getTorrent'
 
+export const getTorrent = GetTorrent
+
 export const ImgATor = (props: any) => {
   let [fileState, updateFile] = useState<WebTorrent.TorrentFile>(),
     [urlState, updateUrl] = useState<string>(),
@@ -42,11 +44,13 @@ export const VidATor = (props: any) => {
     [urlState, updateUrl] = useState<string>(),
     manageFile = (file: WebTorrent.TorrentFile) => {
       // TODO: this better with more file types and upper and lower cases
-      updateFile(file)
-      file.getBlobURL((err, url) => {
-        if (err) throw err
-        updateUrl(url)
-      })
+      if (file.name.includes('.mp4')) {
+        updateFile(file)
+        file.getBlobURL((err, url) => {
+          if (err) throw err
+          updateUrl(url)
+        })
+      }
     }
 
   useEffect(() => {
@@ -85,11 +89,14 @@ export const VidStrmATor = (props: any) => {
     }
     let manageFile = (file: WebTorrent.TorrentFile) => {
       // TODO: this better with more file types and upper and lower cases
-      // @ts-ignore: Object is possibly 'null'.
-      file.renderTo(videoElement.current, opts, function (err, elem) {
-        if (err) throw err // file failed to download or display in the DOM
-        console.log('New DOM node with the content', elem)
-      })
+      if (file.name.includes('.mp4')) {
+        // @ts-ignore: Object is possibly 'null'.
+        file.renderTo(videoElement.current, opts, function (err, elem) {
+          if (err) throw err // file failed to download or display in the DOM
+          console.log('New DOM node with the content', elem)
+        })
+      }
+
     }
     GetTorrent(props.magnetLink, manageFile)
     return () => {}
@@ -109,6 +116,9 @@ export const VidStrmATor = (props: any) => {
     </Fragment>
   )
 }
+
+
+
 
 // import styles from './styles.module.css'
 // interface Props {
