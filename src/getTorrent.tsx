@@ -14,7 +14,7 @@ client.on('error', function (t) {
 
 export const GetTorrent = (
   magnetURI: string | { default: string },
-  manageFile: (file: WebTorrent.TorrentFile) => void
+  manageTor: (file: WebTorrent.Torrent) => void
 ) => {
   if (typeof magnetURI !== 'string') {
     magnetURI = magnetURI.default
@@ -23,22 +23,22 @@ export const GetTorrent = (
   if (torrentCheck) {
     let torrent = torrentCheck
     if (torrent.name) {
-      manageTorrent(torrent, manageFile)
+      manageTor(torrent)
     } else {
       client.on('torrent', function (t: WebTorrent.Torrent) {
         if (torrent?.infoHash === t?.infoHash) {
-          manageTorrent(t, manageFile)
+          manageTor(t)
         }
       })
     }
   } else {
     client.add(magnetURI, function (torrent: WebTorrent.Torrent) {
-      manageTorrent(torrent, manageFile)
+      manageTor(torrent)
     })
   }
 }
 
-export const manageTorrent = (
+export const loopThroughTorFiles = (
   torrent: Torrent,
   manageFile: (file: WebTorrent.TorrentFile) => void
 ) => {

@@ -7,7 +7,7 @@ var client = new WebTorrent();
 client.on('error', function (t) {
   console.log('err', t);
 });
-var GetTorrent = function GetTorrent(magnetURI, manageFile) {
+var GetTorrent = function GetTorrent(magnetURI, manageTor) {
   if (typeof magnetURI !== 'string') {
     magnetURI = magnetURI["default"];
   }
@@ -18,26 +18,27 @@ var GetTorrent = function GetTorrent(magnetURI, manageFile) {
     var torrent = torrentCheck;
 
     if (torrent.name) {
-      manageTorrent(torrent, manageFile);
+      manageTor(torrent);
     } else {
       client.on('torrent', function (t) {
         if ((torrent === null || torrent === void 0 ? void 0 : torrent.infoHash) === (t === null || t === void 0 ? void 0 : t.infoHash)) {
-          manageTorrent(t, manageFile);
+          manageTor(t);
         }
       });
     }
   } else {
     client.add(magnetURI, function (torrent) {
-      manageTorrent(torrent, manageFile);
+      manageTor(torrent);
     });
   }
 };
-var manageTorrent = function manageTorrent(torrent, manageFile) {
+var loopThroughTorFiles = function loopThroughTorFiles(torrent, manageFile) {
   torrent.files.forEach(function (file) {
     manageFile(file);
   });
 };
 
+var getTorrent = GetTorrent;
 var ImgATor = function ImgATor(props) {
   var _useState = React.useState(),
       fileState = _useState[0],
@@ -51,10 +52,13 @@ var ImgATor = function ImgATor(props) {
       if (err) throw err;
       updateUrl(url);
     });
+  },
+      mngTor = function mngTor(torrent) {
+    loopThroughTorFiles(torrent, manageFile);
   };
 
   React.useEffect(function () {
-    GetTorrent(props.magnetLink, manageFile);
+    GetTorrent(props.magnetLink, mngTor);
     return function () {};
   }, []);
   return React.createElement(React.Fragment, null, React.createElement("img", {
@@ -76,15 +80,20 @@ var VidATor = function VidATor(props) {
       urlState = _useState4[0],
       updateUrl = _useState4[1],
       manageFile = function manageFile(file) {
-    updateFile(file);
-    file.getBlobURL(function (err, url) {
-      if (err) throw err;
-      updateUrl(url);
-    });
+    if (file.name.includes('.mp4')) {
+      updateFile(file);
+      file.getBlobURL(function (err, url) {
+        if (err) throw err;
+        updateUrl(url);
+      });
+    }
+  },
+      mngTor = function mngTor(torrent) {
+    loopThroughTorFiles(torrent, manageFile);
   };
 
   React.useEffect(function () {
-    GetTorrent(props.magnetLink, manageFile);
+    GetTorrent(props.magnetLink, mngTor);
     return function () {};
   }, []);
   return React.createElement(React.Fragment, null, urlState ? React.createElement("p", {
@@ -122,9 +131,12 @@ var VidStrmATor = function VidStrmATor(props) {
           console.log('New DOM node with the content', elem);
         });
       }
+    },
+        mngTor = function mngTor(torrent) {
+      loopThroughTorFiles(torrent, manageFile);
     };
 
-    GetTorrent(props.magnetLink, manageFile);
+    GetTorrent(props.magnetLink, mngTor);
     return function () {};
   }, []);
   return React.createElement(React.Fragment, null, React.createElement("video", {
@@ -137,8 +149,63 @@ var VidStrmATor = function VidStrmATor(props) {
     type: 'video/mp4'
   }), "Your browser does not support the video tag."));
 };
+var WrapATor = function WrapATor(props) {
+  var children = props.children;
+
+  var _useState5 = React.useState(),
+      childElements = _useState5[0],
+      updateChildElements = _useState5[1],
+      mngTor = function mngTor(torrent) {
+    var chldElements = React.Children.map(children, function (child) {
+      return React.cloneElement(child, {
+        torrent: torrent
+      });
+    });
+    updateChildElements(chldElements);
+  };
+
+  React.useEffect(function () {
+    GetTorrent(props.magnetLink, mngTor);
+    return function () {};
+  }, []);
+  return React.createElement(React.Fragment, null, childElements);
+};
+var WrappedImgATor = function WrappedImgATor(props) {
+  var _useState6 = React.useState(),
+      fileState = _useState6[0],
+      updateFile = _useState6[1],
+      _useState7 = React.useState(),
+      urlState = _useState7[0],
+      updateUrl = _useState7[1],
+      manageFile = function manageFile(file) {
+    updateFile(file);
+    file.getBlobURL(function (err, url) {
+      if (err) throw err;
+      updateUrl(url);
+    });
+  },
+      mngTor = function mngTor(torrent) {
+    loopThroughTorFiles(torrent, manageFile);
+  };
+
+  React.useEffect(function () {
+    mngTor(props.torrent);
+    return function () {};
+  }, []);
+  return React.createElement(React.Fragment, null, React.createElement("img", {
+    src: urlState,
+    alt: fileState === null || fileState === void 0 ? void 0 : fileState.name,
+    width: props.width,
+    height: props.height,
+    sizes: props.sizes,
+    style: props.style
+  }));
+};
 
 exports.ImgATor = ImgATor;
 exports.VidATor = VidATor;
 exports.VidStrmATor = VidStrmATor;
+exports.WrapATor = WrapATor;
+exports.WrappedImgATor = WrappedImgATor;
+exports.getTorrent = getTorrent;
 //# sourceMappingURL=index.js.map
