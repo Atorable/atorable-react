@@ -6,7 +6,10 @@
 
 <!-- [![NPM](https://img.shields.io/npm/v/atorable-react.svg)](https://www.npmjs.com/package/atorable-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) -->
 
-## Install
+Why? Decreased data from your server.
+
+The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent](https://webtorrent.io/) magnet uri and makes the resulting file available for viewing or other custom uses. This works closely with [`atorable-loader`](https://github.com/sergethompson/atorable-loader).
+## Getting Started
 
 ```bash
 npm install --save atorable-react
