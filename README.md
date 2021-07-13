@@ -1,7 +1,7 @@
 # atorable-react
 
 <p align="center">
-  <img src="https://github.com/sergethompson/atorable-loader/blob/main/atorable.png" height="300" width="300" title="atorable logo">
+  <img src="https://github.com/sergethompson/atorable-loader/blob/main/atorable.png" height="300" width="300" title="atorable logo">©
 </p>
 
 <!-- [![NPM](https://img.shields.io/npm/v/atorable-react.svg)](https://www.npmjs.com/package/atorable-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) -->
