@@ -1,12 +1,12 @@
 {
   "name": "atorable-react",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "View/Use Webtorrent files (video, image, etc)",
   "author": "Serge Thompson",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sergethompson/atorable"
+    "url": "https://github.com/Atorable/atorable-react"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

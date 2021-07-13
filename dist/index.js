@@ -96,11 +96,7 @@ var VidATor = function VidATor(props) {
     GetTorrent(props.magnetLink, mngTor);
     return function () {};
   }, []);
-  return React.createElement(React.Fragment, null, urlState ? React.createElement("p", {
-    style: {
-      color: 'green'
-    }
-  }, "Ready") : React.createElement("p", {
+  return React.createElement(React.Fragment, null, urlState ? null : React.createElement("h2", {
     style: {
       color: 'orange'
     }
@@ -113,7 +109,7 @@ var VidATor = function VidATor(props) {
     ref: videoElement,
     src: urlState
   }, React.createElement("source", {
-    type: 'video/mp4'
+    type: props.type
   }), "Your browser does not support the video tag.", fileState === null || fileState === void 0 ? void 0 : fileState.name));
 };
 var VidStrmATor = function VidStrmATor(props) {

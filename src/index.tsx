@@ -65,12 +65,9 @@ export const VidATor = (props: any) => {
   }, [])
   return (
     <Fragment>
-      {urlState ? (
-        <p style={{ color: 'green' }}>Ready</p>
-      ) : (
-        <p style={{ color: 'orange' }}>Loading</p>
-      )}
+      {urlState ? null : <h2 style={{ color: 'orange' }}>Loading</h2>}
       <video
+        // poster='loading.gif' // TODO: make this loading gif work
         width={props.width}
         height={props.height}
         controls
@@ -79,7 +76,7 @@ export const VidATor = (props: any) => {
         ref={videoElement}
         src={urlState}
       >
-        <source type='video/mp4' />
+        <source type={props.type} />
         Your browser does not support the video tag.{fileState?.name}
       </video>
     </Fragment>

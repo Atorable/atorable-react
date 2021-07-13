@@ -122,5 +122,10 @@ class Example extends Component {
 }
 ```
 
+## Thank you
+[create-react-library](https://github.com/transitive-bullshit/create-react-library)
+[Material-UI](https://github.com/mui-org/material-ui)
+
+
 ## License
 [MIT](./LICENSE) © [Serge Thompson](https://github.com/sergethompson)
