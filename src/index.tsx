@@ -4,9 +4,10 @@ import * as React from 'react'
 import { Fragment, useEffect, useState, useRef } from 'react'
 // eslint-disable-next-line no-unused-vars
 import WebTorrent from 'webtorrent'
-import { GetTorrent, loopThroughTorFiles } from './getTorrent'
+import { GetTorrent, loopThroughTorFiles, PromiseTorrent } from './getTorrent'
 
 export const getTorrent = GetTorrent
+export const promiseTorrent = PromiseTorrent
 
 export const ImgATor = (props: any) => {
   let [fileState, updateFile] = useState<WebTorrent.TorrentFile>(),
@@ -24,7 +25,7 @@ export const ImgATor = (props: any) => {
     }
 
   useEffect(() => {
-    GetTorrent(props.magnetLink, mngTor)
+    PromiseTorrent(props.magnetLink).then(mngTor)
     return () => {}
   }, [])
   return (
@@ -60,7 +61,7 @@ export const VidATor = (props: any) => {
     }
 
   useEffect(() => {
-    GetTorrent(props.magnetLink, mngTor)
+    PromiseTorrent(props.magnetLink).then(mngTor)
     return () => {}
   }, [])
   return (
@@ -85,26 +86,26 @@ export const VidATor = (props: any) => {
 
 export const VidStrmATor = (props: any) => {
   const videoElement = useRef(null)
-  useEffect(() => {
-    const opts = {
-      autoplay: props.autoplay,
-      muted: true
-    }
-    let manageFile = (file: WebTorrent.TorrentFile) => {
-        // TODO: this better with more file types and upper and lower cases
-        if (file.name.includes('.mp4')) {
-          // @ts-ignore: Object is possibly 'null'.
-          file.renderTo(videoElement.current, opts, function (err, elem) {
-            if (err) throw err // file failed to download or display in the DOM
-            console.log('New DOM node with the content', elem)
-          })
-        }
-      },
-      mngTor = (torrent: WebTorrent.Torrent) => {
-        loopThroughTorFiles(torrent, manageFile)
+  const opts = {
+    autoplay: props.autoplay,
+    muted: true
+  }
+  let manageFile = (file: WebTorrent.TorrentFile) => {
+      // TODO: this better with more file types and upper and lower cases
+      if (file.name.includes('.mp4')) {
+        // @ts-ignore: Object is possibly 'null'.
+        file.renderTo(videoElement.current, opts, function (err, elem) {
+          if (err) throw err // file failed to download or display in the DOM
+          console.log('New DOM node with the content', elem)
+        })
       }
+    },
+    mngTor = (torrent: WebTorrent.Torrent) => {
+      loopThroughTorFiles(torrent, manageFile)
+    }
 
-    GetTorrent(props.magnetLink, mngTor)
+  useEffect(() => {
+    PromiseTorrent(props.magnetLink).then(mngTor)
     return () => {}
   }, [])
   return (
@@ -136,7 +137,7 @@ export const WrapATor = (props: any) => {
     }
 
   useEffect(() => {
-    GetTorrent(props.magnetLink, mngTor)
+    PromiseTorrent(props.magnetLink).then(mngTor)
     return () => {}
   }, [])
 

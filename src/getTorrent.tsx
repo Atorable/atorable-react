@@ -46,3 +46,28 @@ export const loopThroughTorFiles = (
     manageFile(file)
   })
 }
+
+export const PromiseTorrent = (magnetURI: string | { default: string }) => {
+  return new Promise((resolve: (file: WebTorrent.Torrent) => void) => {
+    if (typeof magnetURI !== 'string') {
+      magnetURI = magnetURI.default
+    }
+    let torrentCheck = client.get(magnetURI)
+    if (torrentCheck) {
+      let torrent = torrentCheck
+      if (torrent.name) {
+        resolve(torrent)
+      } else {
+        client.on('torrent', function (t: WebTorrent.Torrent) {
+          if (torrent?.infoHash === t?.infoHash) {
+            resolve(t)
+          }
+        })
+      }
+    } else {
+      client.add(magnetURI, function (torrent: WebTorrent.Torrent) {
+        resolve(torrent)
+      })
+    }
+  })
+}

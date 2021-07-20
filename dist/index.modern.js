@@ -35,8 +35,36 @@ var loopThroughTorFiles = function loopThroughTorFiles(torrent, manageFile) {
     manageFile(file);
   });
 };
+var PromiseTorrent = function PromiseTorrent(magnetURI) {
+  return new Promise(function (resolve) {
+    if (typeof magnetURI !== 'string') {
+      magnetURI = magnetURI["default"];
+    }
+
+    var torrentCheck = client.get(magnetURI);
+
+    if (torrentCheck) {
+      var torrent = torrentCheck;
+
+      if (torrent.name) {
+        resolve(torrent);
+      } else {
+        client.on('torrent', function (t) {
+          if ((torrent === null || torrent === void 0 ? void 0 : torrent.infoHash) === (t === null || t === void 0 ? void 0 : t.infoHash)) {
+            resolve(t);
+          }
+        });
+      }
+    } else {
+      client.add(magnetURI, function (torrent) {
+        resolve(torrent);
+      });
+    }
+  });
+};
 
 var getTorrent = GetTorrent;
+var promiseTorrent = PromiseTorrent;
 var ImgATor = function ImgATor(props) {
   var _useState = useState(),
       fileState = _useState[0],
@@ -56,7 +84,7 @@ var ImgATor = function ImgATor(props) {
   };
 
   useEffect(function () {
-    GetTorrent(props.magnetLink, mngTor);
+    PromiseTorrent(props.magnetLink).then(mngTor);
     return function () {};
   }, []);
   return createElement(Fragment, null, createElement("img", {
@@ -91,7 +119,7 @@ var VidATor = function VidATor(props) {
   };
 
   useEffect(function () {
-    GetTorrent(props.magnetLink, mngTor);
+    PromiseTorrent(props.magnetLink).then(mngTor);
     return function () {};
   }, []);
   return createElement(Fragment, null, urlState ? null : createElement("h2", {
@@ -112,25 +140,25 @@ var VidATor = function VidATor(props) {
 };
 var VidStrmATor = function VidStrmATor(props) {
   var videoElement = useRef(null);
+  var opts = {
+    autoplay: props.autoplay,
+    muted: true
+  };
+
+  var manageFile = function manageFile(file) {
+    if (file.name.includes('.mp4')) {
+      file.renderTo(videoElement.current, opts, function (err, elem) {
+        if (err) throw err;
+        console.log('New DOM node with the content', elem);
+      });
+    }
+  },
+      mngTor = function mngTor(torrent) {
+    loopThroughTorFiles(torrent, manageFile);
+  };
+
   useEffect(function () {
-    var opts = {
-      autoplay: props.autoplay,
-      muted: true
-    };
-
-    var manageFile = function manageFile(file) {
-      if (file.name.includes('.mp4')) {
-        file.renderTo(videoElement.current, opts, function (err, elem) {
-          if (err) throw err;
-          console.log('New DOM node with the content', elem);
-        });
-      }
-    },
-        mngTor = function mngTor(torrent) {
-      loopThroughTorFiles(torrent, manageFile);
-    };
-
-    GetTorrent(props.magnetLink, mngTor);
+    PromiseTorrent(props.magnetLink).then(mngTor);
     return function () {};
   }, []);
   return createElement(Fragment, null, createElement("video", {
@@ -159,7 +187,7 @@ var WrapATor = function WrapATor(props) {
   };
 
   useEffect(function () {
-    GetTorrent(props.magnetLink, mngTor);
+    PromiseTorrent(props.magnetLink).then(mngTor);
     return function () {};
   }, []);
   return createElement(Fragment, null, childElements);
@@ -196,5 +224,5 @@ var WrappedImgATor = function WrappedImgATor(props) {
   }));
 };
 
-export { ImgATor, VidATor, VidStrmATor, WrapATor, WrappedImgATor, getTorrent };
+export { ImgATor, VidATor, VidStrmATor, WrapATor, WrappedImgATor, getTorrent, promiseTorrent };
 //# sourceMappingURL=index.modern.js.map
