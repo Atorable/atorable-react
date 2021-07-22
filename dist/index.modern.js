@@ -1,19 +1,19 @@
 import { useState, useEffect, createElement, Fragment, useRef, Children, cloneElement } from 'react';
 import WebTorrent from 'webtorrent';
 
-var client = new WebTorrent();
+const client = new WebTorrent();
 client.on('error', function (t) {
   console.log('err', t);
 });
-var GetTorrent = function GetTorrent(magnetURI, manageTor) {
+const GetTorrent = (magnetURI, manageTor) => {
   if (typeof magnetURI !== 'string') {
-    magnetURI = magnetURI["default"];
+    magnetURI = magnetURI.default;
   }
 
-  var torrentCheck = client.get(magnetURI);
+  let torrentCheck = client.get(magnetURI);
 
   if (torrentCheck) {
-    var torrent = torrentCheck;
+    let torrent = torrentCheck;
 
     if (torrent.name) {
       manageTor(torrent);
@@ -30,21 +30,21 @@ var GetTorrent = function GetTorrent(magnetURI, manageTor) {
     });
   }
 };
-var loopThroughTorFiles = function loopThroughTorFiles(torrent, manageFile) {
-  torrent.files.forEach(function (file) {
+const loopThroughTorFiles = (torrent, manageFile) => {
+  torrent.files.forEach(file => {
     manageFile(file);
   });
 };
-var PromiseTorrent = function PromiseTorrent(magnetURI) {
-  return new Promise(function (resolve) {
+const PromiseTorrent = magnetURI => {
+  return new Promise(resolve => {
     if (typeof magnetURI !== 'string') {
-      magnetURI = magnetURI["default"];
+      magnetURI = magnetURI.default;
     }
 
-    var torrentCheck = client.get(magnetURI);
+    let torrentCheck = client.get(magnetURI);
 
     if (torrentCheck) {
-      var torrent = torrentCheck;
+      let torrent = torrentCheck;
 
       if (torrent.name) {
         resolve(torrent);
@@ -63,29 +63,28 @@ var PromiseTorrent = function PromiseTorrent(magnetURI) {
   });
 };
 
-var getTorrent = GetTorrent;
-var promiseTorrent = PromiseTorrent;
-var ImgATor = function ImgATor(props) {
-  var _useState = useState(),
-      fileState = _useState[0],
-      updateFile = _useState[1],
-      _useState2 = useState(),
-      urlState = _useState2[0],
-      updateUrl = _useState2[1],
-      manageFile = function manageFile(file) {
+/* loaded by smart-asset */
+var iGif = "Infinity~vElNQthJ.gif";
+
+const getTorrent = GetTorrent;
+const promiseTorrent = PromiseTorrent;
+const ImgATor = props => {
+  let [fileState, updateFile] = useState(),
+      [urlState, updateUrl] = useState(),
+      manageFile = file => {
     updateFile(file);
-    file.getBlobURL(function (err, url) {
+    file.getBlobURL((err, url) => {
       if (err) throw err;
       updateUrl(url);
     });
   },
-      mngTor = function mngTor(torrent) {
+      mngTor = torrent => {
     loopThroughTorFiles(torrent, manageFile);
   };
 
-  useEffect(function () {
+  useEffect(() => {
     PromiseTorrent(props.magnetLink).then(mngTor);
-    return function () {};
+    return () => {};
   }, []);
   return createElement(Fragment, null, createElement("img", {
     src: urlState,
@@ -96,37 +95,32 @@ var ImgATor = function ImgATor(props) {
     style: props.style
   }));
 };
-var VidATor = function VidATor(props) {
-  var videoElement = useRef(null);
+const VidATor = props => {
+  const videoElement = useRef(null);
 
-  var _useState3 = useState(),
-      fileState = _useState3[0],
-      updateFile = _useState3[1],
-      _useState4 = useState(),
-      urlState = _useState4[0],
-      updateUrl = _useState4[1],
-      manageFile = function manageFile(file) {
-    if (file.name.includes('.mp4')) {
-      updateFile(file);
-      file.getBlobURL(function (err, url) {
+  let [urlState, updateUrl] = useState(),
+      manageFile = file => {
+    if (file.name.includes(props.type)) {
+      file.getBlobURL((err, url) => {
         if (err) throw err;
         updateUrl(url);
       });
     }
   },
-      mngTor = function mngTor(torrent) {
+      mngTor = torrent => {
     loopThroughTorFiles(torrent, manageFile);
   };
 
-  useEffect(function () {
+  useEffect(() => {
     PromiseTorrent(props.magnetLink).then(mngTor);
-    return function () {};
+    return () => {};
   }, []);
   return createElement(Fragment, null, urlState ? null : createElement("h2", {
     style: {
       color: 'orange'
     }
   }, "Loading"), createElement("video", {
+    poster: iGif,
     width: props.width,
     height: props.height,
     controls: true,
@@ -135,17 +129,17 @@ var VidATor = function VidATor(props) {
     ref: videoElement,
     src: urlState
   }, createElement("source", {
-    type: props.type
-  }), "Your browser does not support the video tag.", fileState === null || fileState === void 0 ? void 0 : fileState.name));
+    type: 'video/' + props.type
+  }), "Your browser does not support the video tag."));
 };
-var VidStrmATor = function VidStrmATor(props) {
-  var videoElement = useRef(null);
-  var opts = {
+const VidStrmATor = props => {
+  const videoElement = useRef(null);
+  const opts = {
     autoplay: props.autoplay,
     muted: true
   };
 
-  var manageFile = function manageFile(file) {
+  let manageFile = file => {
     if (file.name.includes('.mp4')) {
       file.renderTo(videoElement.current, opts, function (err, elem) {
         if (err) throw err;
@@ -153,13 +147,13 @@ var VidStrmATor = function VidStrmATor(props) {
       });
     }
   },
-      mngTor = function mngTor(torrent) {
+      mngTor = torrent => {
     loopThroughTorFiles(torrent, manageFile);
   };
 
-  useEffect(function () {
+  useEffect(() => {
     PromiseTorrent(props.magnetLink).then(mngTor);
-    return function () {};
+    return () => {};
   }, []);
   return createElement(Fragment, null, createElement("video", {
     width: props.width,
@@ -171,48 +165,42 @@ var VidStrmATor = function VidStrmATor(props) {
     type: 'video/mp4'
   }), "Your browser does not support the video tag."));
 };
-var WrapATor = function WrapATor(props) {
-  var children = props.children;
+const WrapATor = props => {
+  const {
+    children
+  } = props;
 
-  var _useState5 = useState(),
-      childElements = _useState5[0],
-      updateChildElements = _useState5[1],
-      mngTor = function mngTor(torrent) {
-    var chldElements = Children.map(children, function (child) {
-      return cloneElement(child, {
-        torrent: torrent
-      });
-    });
+  let [childElements, updateChildElements] = useState(),
+      mngTor = torrent => {
+    const chldElements = Children.map(children, child => cloneElement(child, {
+      torrent: torrent
+    }));
     updateChildElements(chldElements);
   };
 
-  useEffect(function () {
+  useEffect(() => {
     PromiseTorrent(props.magnetLink).then(mngTor);
-    return function () {};
+    return () => {};
   }, []);
   return createElement(Fragment, null, childElements);
 };
-var WrappedImgATor = function WrappedImgATor(props) {
-  var _useState6 = useState(),
-      fileState = _useState6[0],
-      updateFile = _useState6[1],
-      _useState7 = useState(),
-      urlState = _useState7[0],
-      updateUrl = _useState7[1],
-      manageFile = function manageFile(file) {
+const WrappedImgATor = props => {
+  let [fileState, updateFile] = useState(),
+      [urlState, updateUrl] = useState(),
+      manageFile = file => {
     updateFile(file);
-    file.getBlobURL(function (err, url) {
+    file.getBlobURL((err, url) => {
       if (err) throw err;
       updateUrl(url);
     });
   },
-      mngTor = function mngTor(torrent) {
+      mngTor = torrent => {
     loopThroughTorFiles(torrent, manageFile);
   };
 
-  useEffect(function () {
+  useEffect(() => {
     mngTor(props.torrent);
-    return function () {};
+    return () => {};
   }, []);
   return createElement(Fragment, null, createElement("img", {
     src: urlState,

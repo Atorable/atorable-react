@@ -30,7 +30,7 @@ class Example extends Component {
   render() {
     return (
       <div>
-        <VidATor width='320' height='240' type={'video/m4v'} magnetLink={oceanFish} />
+        <VidATor width='320' height='240' type={'m4v'} magnetLink={oceanFish} />
 
         <VidStrmATor width='320' height='240' autoplay={true} magnetLink={bestMovieEverTribute} />
 
@@ -57,7 +57,7 @@ class Example extends Component {
   render() {
     return (
       <div>
-        <VidATor width='320' height='240' magnetLink={oceanFish} />
+        <VidATor width='320' height='240' type={'m4v'} magnetLink={oceanFish} />
 
         <VidStrmATor width='320' height='240' autoplay={true} magnetLink={sintel} />
 

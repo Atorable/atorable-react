@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState, useRef } from 'react'
 // eslint-disable-next-line no-unused-vars
 import WebTorrent from 'webtorrent'
 import { GetTorrent, loopThroughTorFiles, PromiseTorrent } from './getTorrent'
+import iGif from './Infinity.gif'
 
 export const getTorrent = GetTorrent
 export const promiseTorrent = PromiseTorrent
@@ -44,12 +45,11 @@ export const ImgATor = (props: any) => {
 
 export const VidATor = (props: any) => {
   const videoElement = useRef(null)
-  let [fileState, updateFile] = useState<WebTorrent.TorrentFile>(),
-    [urlState, updateUrl] = useState<string>(),
+  let [urlState, updateUrl] = useState<string>(),
+    // [fileState, updateFile] = useState<WebTorrent.TorrentFile>(),
     manageFile = (file: WebTorrent.TorrentFile) => {
       // TODO: this better with more file types and upper and lower cases
-      if (file.name.includes('.mp4')) {
-        updateFile(file)
+      if (file.name.includes(props.type)) {
         file.getBlobURL((err, url) => {
           if (err) throw err
           updateUrl(url)
@@ -68,7 +68,7 @@ export const VidATor = (props: any) => {
     <Fragment>
       {urlState ? null : <h2 style={{ color: 'orange' }}>Loading</h2>}
       <video
-        // poster='loading.gif' // TODO: make this loading gif work
+        poster={iGif} // TODO: make this loading gif work
         width={props.width}
         height={props.height}
         controls
@@ -77,8 +77,8 @@ export const VidATor = (props: any) => {
         ref={videoElement}
         src={urlState}
       >
-        <source type={props.type} />
-        Your browser does not support the video tag.{fileState?.name}
+        <source type={'video/' + props.type} />
+        Your browser does not support the video tag.
       </video>
     </Fragment>
   )

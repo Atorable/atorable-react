@@ -65,6 +65,9 @@ var PromiseTorrent = function PromiseTorrent(magnetURI) {
   });
 };
 
+/* loaded by smart-asset */
+var iGif = "Infinity~vElNQthJ.gif";
+
 var getTorrent = GetTorrent;
 var promiseTorrent = PromiseTorrent;
 var ImgATor = function ImgATor(props) {
@@ -102,14 +105,10 @@ var VidATor = function VidATor(props) {
   var videoElement = React.useRef(null);
 
   var _useState3 = React.useState(),
-      fileState = _useState3[0],
-      updateFile = _useState3[1],
-      _useState4 = React.useState(),
-      urlState = _useState4[0],
-      updateUrl = _useState4[1],
+      urlState = _useState3[0],
+      updateUrl = _useState3[1],
       manageFile = function manageFile(file) {
-    if (file.name.includes('.mp4')) {
-      updateFile(file);
+    if (file.name.includes(props.type)) {
       file.getBlobURL(function (err, url) {
         if (err) throw err;
         updateUrl(url);
@@ -129,6 +128,7 @@ var VidATor = function VidATor(props) {
       color: 'orange'
     }
   }, "Loading"), React.createElement("video", {
+    poster: iGif,
     width: props.width,
     height: props.height,
     controls: true,
@@ -137,8 +137,8 @@ var VidATor = function VidATor(props) {
     ref: videoElement,
     src: urlState
   }, React.createElement("source", {
-    type: props.type
-  }), "Your browser does not support the video tag.", fileState === null || fileState === void 0 ? void 0 : fileState.name));
+    type: 'video/' + props.type
+  }), "Your browser does not support the video tag."));
 };
 var VidStrmATor = function VidStrmATor(props) {
   var videoElement = React.useRef(null);
@@ -176,9 +176,9 @@ var VidStrmATor = function VidStrmATor(props) {
 var WrapATor = function WrapATor(props) {
   var children = props.children;
 
-  var _useState5 = React.useState(),
-      childElements = _useState5[0],
-      updateChildElements = _useState5[1],
+  var _useState4 = React.useState(),
+      childElements = _useState4[0],
+      updateChildElements = _useState4[1],
       mngTor = function mngTor(torrent) {
     var chldElements = React.Children.map(children, function (child) {
       return React.cloneElement(child, {
@@ -195,12 +195,12 @@ var WrapATor = function WrapATor(props) {
   return React.createElement(React.Fragment, null, childElements);
 };
 var WrappedImgATor = function WrappedImgATor(props) {
-  var _useState6 = React.useState(),
-      fileState = _useState6[0],
-      updateFile = _useState6[1],
-      _useState7 = React.useState(),
-      urlState = _useState7[0],
-      updateUrl = _useState7[1],
+  var _useState5 = React.useState(),
+      fileState = _useState5[0],
+      updateFile = _useState5[1],
+      _useState6 = React.useState(),
+      urlState = _useState6[0],
+      updateUrl = _useState6[1],
       manageFile = function manageFile(file) {
     updateFile(file);
     file.getBlobURL(function (err, url) {

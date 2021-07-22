@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import WebTorrent from 'webtorrent';
 export declare const getTorrent: (magnetURI: string | {
     default: string;
