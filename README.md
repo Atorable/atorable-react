@@ -8,8 +8,10 @@
 
 Why? Decreased data from your server.
 
-The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent](https://webtorrent.io/) magnet uri for viewing or other custom uses. This works closely with [atorable-loader][atorable-loader-source]. 
-####[Demo][atorable-react]
+The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent](https://webtorrent.io/) magnet uri for viewing or other custom uses. This works closely with [atorable-loader][atorable-loader-source].
+
+#### [Demo][atorable-react]
+
 ## Getting Started
 
 ```bash
