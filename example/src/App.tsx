@@ -1,9 +1,9 @@
 import {
-  // VidStrmATor
-  // ImgATor,
-  VidATor
-  // WrapATor,
-  // WrappedImgATor
+    // VidStrmATor
+    // ImgATor,
+    VidATor
+    // WrapATor,
+    // WrappedImgATor
 } from 'atorable-react'
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
@@ -21,59 +21,61 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
 import img from './atorable.png'
+import bunny from './bunny.mp4'
+import bunnyTor from './bunny.torrent'
 
 function Copyright() {
-  return (
-    <Typography variant='body2' color='textSecondary' align='center'>
-      {'Copyright © '}
-      <Link
-        color='inherit'
-        href='https://github.com/sergethompson/atorable-react'
-      >
-        atorable-react
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
+    return (
+        <Typography variant='body2' color='textSecondary' align='center'>
+            {'Copyright © '}
+            <Link
+                color='inherit'
+                href='https://github.com/sergethompson/atorable-react'
+            >
+                atorable-react
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    )
 }
 
 const useStyles = makeStyles((theme) => ({
-  main: {
-    backgroundColor: '#bef710' // theme.palette.background.paper,
-  },
-  icon: {
-    marginRight: theme.spacing(2)
-  },
-  heroContent: {
-    backgroundColor: '#bef710', // theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6)
-    // font: 'helvetica' // movie about this font
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4)
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  cardMedia: {
-    paddingTop: '56.25%' // 16:9
-  },
-  cardContent: {
-    flexGrow: 1
-  },
-  footer: {
-    backgroundColor: '#bef710', // theme.palette.background.paper,
-    padding: theme.spacing(6)
-  }
+    main: {
+        backgroundColor: '#bef710' // theme.palette.background.paper,
+    },
+    icon: {
+        marginRight: theme.spacing(2)
+    },
+    heroContent: {
+        backgroundColor: '#bef710', // theme.palette.background.paper,
+        padding: theme.spacing(8, 0, 6)
+        // font: 'helvetica' // movie about this font
+    },
+    heroButtons: {
+        marginTop: theme.spacing(4)
+    },
+    cardGrid: {
+        paddingTop: theme.spacing(8),
+        paddingBottom: theme.spacing(8),
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    card: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    cardMedia: {
+        paddingTop: '56.25%' // 16:9
+    },
+    cardContent: {
+        flexGrow: 1
+    },
+    footer: {
+        backgroundColor: '#bef710', // theme.palette.background.paper,
+        padding: theme.spacing(6)
+    }
 }))
 
 // const cards = [1, 2, 3]
@@ -83,121 +85,142 @@ const useStyles = makeStyles((theme) => ({
 //   'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 // let oceanFish =
 //   'magnet:?xt=urn:btih:17a613e4a81e52cf41cab72157a24faecaa8f2f5&dn=GOPR0093.mp4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=http%3A%2F%2Flocalhost%3A8080%2Fassets%2Fimg%2FGOPR0093.mp4&xs=http%3A%2F%2Flocalhost%3A8080%2Fassets%2Fimg%2FGOPR0093.torrent'
-let steel =
-  'magnet:?xt=urn:btih:209c8226b299b308beaf2b9cd3fb49212dbd13ec&dn=Tears+of+Steel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Ftears-of-steel.torrent'
+let bunnyMagnet =
+    'magnet:?xt=urn:btih:2bd1f18edf0503c435a93aa8891e8c9b07eb87b2&dn=bunny.59b8487d.mp4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fatorable.github.io%2Fatorable-react%2Fstatic%2Fmedia%2Fbunny.59b8487d.mp4&xs=https%3A%2F%2Fatorable.github.io%2Fatorable-react%2Fstatic%2Fmedia%2Fbunny.97b7255e.torrent'
 export default function Album() {
-  const classes = useStyles()
+    const classes = useStyles()
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position='relative'>
-        <Toolbar>
-          <Public className={classes.icon} />
-          <Typography variant='h6' color='inherit' noWrap>
-            atorable-react
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main className={classes.main}>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth='sm'>
-            <Typography
-              component='h1'
-              variant='h2'
-              align='center'
-              color='textPrimary'
-              gutterBottom
-            >
-              atorable-react
-            </Typography>
-            <CardMedia
-              className={classes.cardMedia}
-              image={img}
-              title='atorable-react'
-            />
-            <Typography
-              variant='h5'
-              align='center'
-              color='textSecondary'
-              paragraph
-            >
-              React component that processes a{' '}
-              <Link color='inherit' href='https://webtorrent.io/'>
-                Webtorrent
-              </Link>{' '}
-              magnet uri and makes the resulting file available for viewing or
-              other custom uses.
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justifyContent='center'>
-                <Grid item>
-                  <Button variant='contained' color='primary'>
-                    <Link
-                      color='inherit'
-                      href='https://www.npmjs.com/package/atorable-react'
-                    >
-                      NPM
-                    </Link>{' '}
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant='outlined' color='primary'>
-                    <Link
-                      color='inherit'
-                      href='https://github.com/sergethompson/atorable-loader'
-                    >
-                      GITHUB
-                    </Link>{' '}
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
-          </Container>
-        </div>
-        <Container className={classes.cardGrid} maxWidth='md'>
-          <VidATor width='480' height='360' type={'webm'} magnetLink={steel} />
+    return (
+        <React.Fragment>
+            <CssBaseline />
+            <AppBar position='relative'>
+                <Toolbar>
+                    <Public className={classes.icon} />
+                    <Typography variant='h6' color='inherit' noWrap>
+                        atorable-react
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <main className={classes.main}>
+                {/* Hero unit */}
+                <div className={classes.heroContent}>
+                    <Container maxWidth='sm'>
+                        <Typography
+                            component='h1'
+                            variant='h2'
+                            align='center'
+                            color='textPrimary'
+                            gutterBottom
+                        >
+                            atorable-react
+                        </Typography>
+                        <CardMedia
+                            className={classes.cardMedia}
+                            image={img}
+                            title='atorable-react'
+                        />
+                        <Typography
+                            variant='h5'
+                            align='center'
+                            color='textSecondary'
+                            paragraph
+                        >
+                            React component that processes a{' '}
+                            <Link color='inherit' href='https://webtorrent.io/'>
+                                Webtorrent
+                            </Link>{' '}
+                            magnet uri and makes the resulting file available
+                            for viewing or other custom uses.
+                        </Typography>
+                        <div className={classes.heroButtons}>
+                            <Grid container spacing={2} justifyContent='center'>
+                                <Grid item>
+                                    <Button variant='contained' color='primary'>
+                                        <Link
+                                            color='inherit'
+                                            href='https://www.npmjs.com/package/atorable-react'
+                                        >
+                                            NPM
+                                        </Link>{' '}
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant='outlined' color='primary'>
+                                        <Link
+                                            color='inherit'
+                                            href='https://github.com/sergethompson/atorable-react'
+                                        >
+                                            GITHUB
+                                        </Link>{' '}
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Container>
+                </div>
+                <Container className={classes.cardGrid} maxWidth='md'>
+                    <VidATor
+                        width='480'
+                        height='360'
+                        type={'mp4'}
+                        magnetURI={bunnyMagnet}
+                    />
 
-          {/* <VidStrmATor
+                    {/* <VidStrmATor
             width='320'
             height='240'
             autoplay={true}
-            magnetLink={steel}
+            magnetURI={steel}
           /> */}
-          {/* <br /> */}
-          {/* <ImgATor magnetLink={imgPath} style={{ border: 'solid' }} /> */}
+                    {/* <br /> */}
+                    {/* <ImgATor magnetURI={imgPath} style={{ border: 'solid' }} /> */}
 
-          {/* <WrapATor magnetLink={imgPath}>
+                    {/* <WrapATor magnetURI={imgPath}>
             <WrappedImgATor />
           </WrapATor> */}
-        </Container>
-        {/* Card Container below */}
-      </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant='h6' align='center' gutterBottom>
-          <span role='img'>🦶</span>
-        </Typography>
-        <Typography
-          variant='subtitle1'
-          align='center'
-          color='textSecondary'
-          component='p'
-        >
-          If you like this you will love{' '}
-          <Link
-            color='inherit'
-            href='https://github.com/sergethompson/atorable-loader'
-          >
-            atorable-loader
-          </Link>{' '}
-        </Typography>
-        <Copyright />
-      </footer>
-      {/* End footer */}
-    </React.Fragment>
-  )
+                </Container>
+                {/* Card Container below */}
+            </main>
+            {/* Footer */}
+            <footer className={classes.footer}>
+                <Typography variant='h6' align='center' gutterBottom>
+                    <a href={bunnyTor} download>
+                        <span role='img'>🦶</span>
+                    </a>
+                </Typography>
+                <Typography
+                    variant='subtitle1'
+                    align='center'
+                    color='textSecondary'
+                    component='p'
+                >
+                    If you like this you will <span role='img'>❤️</span>{' '}
+                    <Link
+                        color='inherit'
+                        href='https://github.com/sergethompson/atorable-loader'
+                    >
+                        atorable-loader
+                    </Link>{' '}
+                </Typography>
+                <Copyright />
+                <video
+                    style={{ position: 'absolute', left: '-9999px' }}
+                    // poster={iGif} // TODO: make this loading gif work
+                    // width={props.width}
+                    // height={props.height}
+                    // controls
+                    // autoPlay
+                    // muted
+                    // ref={videoElement}
+                    src={bunny}
+                >
+                    <source type={'video/mp4'} />
+                    Your browser does not support the video tag.
+                </video>
+            </footer>
+            {/* End footer */}
+        </React.Fragment>
+    )
 }
 
 //  <Container className={classes.cardGrid} maxWidth='md'>

@@ -8,16 +8,26 @@
 
 Why? Decreased data from your server.
 
-The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent](https://webtorrent.io/) magnet uri for viewing or other custom uses. This works closely with [atorable-loader][atorable-loader-source].
+The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent](https://webtorrent.io/) magnet uri for viewing or other custom uses. This works closely with [atorable-loader][atorable-loader-npm].
 
 #### [Demo][atorable-react]
+
+## Updates / Upgrade to Version 1.0.0
+magnetLink ==> magnetURI
+width: string ==> number
+height: string ==> number
+
+added ability to set loading component
+        loading={<h2 style={{ color: 'orange' }}>Loading</h2>}
+
+
 
 ## Getting Started
 
 ```bash
 npm install --save atorable-react
 ```
-## Primary usage w/ [atorable-loader][atorable-loader-source]
+## Primary usage w/ [atorable-loader][atorable-loader-npm]
 For images and video (streaming limited to .mp4)
 see advanced usage for more flexibility
 
@@ -33,11 +43,11 @@ class Example extends Component {
   render() {
     return (
       <div>
-        <VidATor width='320' height='240' type={'m4v'} magnetLink={oceanFish} />
+        <VidATor width={320} height={240} type={'m4v'} magnetURI={oceanFish} loading={<h2 style={{ color: 'orange' }}>Loading</h2>}/>
 
-        <VidStrmATor width='320' height='240' type={'mp4'} autoplay={true} magnetLink={bestMovieEverTribute} />
+        <VidStrmATor width={320} height={240} type={'mp4'} autoplay={true} magnetURI={bestMovieEverTribute} />
 
-        <ImgATor magnetLink={hugeImage} style={{border: 'solid'}} />
+        <ImgATor magnetURI={hugeImage} style={{border: 'solid'}} />
       </div>
     )
   }
@@ -58,11 +68,11 @@ class Example extends Component {
   render() {
     return (
       <div>
-        <VidATor width='320' height='240' type={'m4v'} magnetLink={oceanFish} />
+        <VidATor width={320} height={240} type={'m4v'} magnetURI={oceanFish} />
 
-        <VidStrmATor width='320' height='240' type={'mp4'} autoplay={true} magnetLink={sintel} />
+        <VidStrmATor width={320} height={240} type={'mp4'} autoplay={true} magnetURI={sintel} />
 
-        <ImgATor magnetLink={imgPath} style={{border: 'solid'}} />
+        <ImgATor magnetURI={imgPath} style={{border: 'solid'}} />
       </div>
     )
   }
@@ -76,7 +86,7 @@ import React, { Component, useEffect, useState } from 'react'
 import { WrapATor } from 'atorable-react'
 import hugeImage from './hugeImage.jpg';
 // Make a component that gets wrapped with <WrapATor> which gets the prop torrent a <WebTorrent.Torrent>
-const WrappedImgTor = (props: any) => {
+const WrappedImgTor = (props: {torrent: WebTorrent.Torrent}) => {
   let [fileState, updateFile] = useState<WebTorrent.TorrentFile>(),
       [urlState, updateUrl] = useState<string>(),
       manageFile = (file: WebTorrent.TorrentFile) => {
@@ -114,8 +124,8 @@ class Example extends Component {
   render() {
     return (
       <div>
-        <WrapATor magnetLink={hugeImage}>
-          <WrappedImgTor width='320' height='240'/>
+        <WrapATor magnetURI={hugeImage}>
+          <WrappedImgTor width={320} height={240}/>
         </WrapATor>
       </div>
     )
@@ -134,3 +144,4 @@ class Example extends Component {
 [atorable-react]: https://atorable.github.io/atorable-react/
 [atorable-react-source]: https://github.com/Atorable/atorable-react
 [atorable-loader-source]: https://github.com/Atorable/atorable-loader
+[atorable-loader-npm]: https://www.npmjs.com/package/atorable-loader
