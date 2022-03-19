@@ -1,4 +1,5 @@
-<h1 style="color: #5270d9; font-family: 'PT Sans', sans-serif;">ATORABLE</h1>
+<h1 style="color: #5270d9; font-family: 'PT Sans', sans-serif;">ATORABLE</h1> 
+<!-- TOOD: make above to link to atorable.com fix color  -->
 
 
 <!-- [![NPM](https://img.shields.io/npm/v/atorable-react.svg)](https://www.npmjs.com/package/atorable-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) -->
@@ -12,6 +13,7 @@
   <img src="example/src/atorable.png" height="100" width="100" title="atorable logo">
 <img src="https://github.com/Atorable/atorable-loader/blob/main/atorable.png" height="100" width="100" title="atorable logo">© 
 </p> -->
+
 # atorable-react
 
 Why? Decreased data from your server. Large files faster.
