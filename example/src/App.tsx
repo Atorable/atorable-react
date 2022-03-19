@@ -41,13 +41,13 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     main: {
-        backgroundColor: '#bef710' // theme.palette.background.paper,
+        backgroundColor: '#5270d9' // theme.palette.background.paper,
     },
     icon: {
         marginRight: theme.spacing(2)
     },
     heroContent: {
-        backgroundColor: '#bef710', // theme.palette.background.paper,
+        backgroundColor: '#5270d9', // theme.palette.background.paper,
         padding: theme.spacing(8, 0, 6)
         // font: 'helvetica' // movie about this font
     },
@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4)
     },
     cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
+        paddingTop: '0',
+        paddingBottom: '0',
         display: 'flex',
         justifyContent: 'center'
     },
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     footer: {
-        backgroundColor: '#bef710', // theme.palette.background.paper,
+        backgroundColor: '#5270d9', // theme.palette.background.paper,
         padding: theme.spacing(6)
     }
 }))
@@ -92,7 +92,7 @@ export default function Album() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position='relative'>
+            <AppBar color='secondary' position='relative'>
                 <Toolbar>
                     <Public className={classes.icon} />
                     <Typography variant='h6' color='inherit' noWrap>
@@ -118,6 +118,23 @@ export default function Album() {
                             image={img}
                             title='atorable-react'
                         />
+                        {/* <h1
+                            style={{
+                                color: '#5270d9',
+                                fontFamily: 'PT Sans, sans-serif'
+                            }}
+                        >
+                            ATORABLE
+                        </h1>
+
+                        <p style={{ fontAlign: 'center' }}>
+                            <img
+                                height='300'
+                                width='300'
+                                title='atorable logo'
+                                src='../atorable.svg'
+                            />
+                        </p> */}
                         <Typography
                             variant='h5'
                             align='center'
@@ -159,9 +176,9 @@ export default function Album() {
                 </div>
                 <Container className={classes.cardGrid} maxWidth='md'>
                     <VidATor
-                        width='480'
-                        height='360'
-                        type={'mp4'}
+                        width={480}
+                        height={360}
+                        type={'video/mp4'}
                         magnetURI={bunnyMagnet}
                     />
 

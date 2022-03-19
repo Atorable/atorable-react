@@ -1,10 +1,18 @@
-# atorable-react
+<h1 style="color: #5270d9; font-family: 'PT Sans', sans-serif;">ATORABLE</h1>
 
-<p align="center">
-  <img src="https://github.com/Atorable/atorable-loader/blob/main/atorable.png" height="300" width="300" title="atorable logo">©
-</p>
 
 <!-- [![NPM](https://img.shields.io/npm/v/atorable-react.svg)](https://www.npmjs.com/package/atorable-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) -->
+
+
+<!-- ![Alt text](./atorable.svg) -->
+<p align="center">
+  <img height="300" width="300" title="atorable logo" src="./atorable.svg">
+</p>
+<!-- <p align="center">
+  <img src="example/src/atorable.png" height="100" width="100" title="atorable logo">
+<img src="https://github.com/Atorable/atorable-loader/blob/main/atorable.png" height="100" width="100" title="atorable logo">© 
+</p> -->
+# atorable-react
 
 Why? Decreased data from your server. Large files faster.
 
