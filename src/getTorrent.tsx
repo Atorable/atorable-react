@@ -5,7 +5,7 @@ import type webT from 'webtorrent'
 // https://github.com/webtorrent/webtorrent/issues/2206
 // https://github.com/facebook/create-react-app/issues/11756
 // @ts-ignore TODO: fix this polyfill issue
-import WebTorrent, { Torrent } from 'webtorrent/webtorrent.min'
+import WebTorrent from 'webtorrent/webtorrent.min'
 // import WebTorrent, { Torrent } from 'webtorrent'
 const client = new WebTorrent()
 
@@ -44,7 +44,7 @@ export const GetTorrent = (
 }
 
 export const loopThroughTorFiles = (
-    torrent: Torrent,
+    torrent: webT.Torrent,
     manageFile: (file: webT.TorrentFile) => void
 ) => {
     torrent.files.forEach((file: webT.TorrentFile) => {

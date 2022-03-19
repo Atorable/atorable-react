@@ -3,7 +3,6 @@ import {
     // ImgATor,
     VidATor
     // WrapATor,
-    // WrappedImgATor
 } from 'atorable-react'
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
@@ -176,7 +175,6 @@ export default function Album() {
                     {/* <ImgATor magnetURI={imgPath} style={{ border: 'solid' }} /> */}
 
                     {/* <WrapATor magnetURI={imgPath}>
-            <WrappedImgATor />
           </WrapATor> */}
                 </Container>
                 {/* Card Container below */}
