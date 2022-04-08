@@ -82,7 +82,7 @@ const VideoTest = (props: {
                 controls
                 muted
                 preload='auto'
-                autoPlay
+                // autoPlay
             >
                 <source
                     // type="video/mp4"

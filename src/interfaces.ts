@@ -8,6 +8,13 @@ export interface Image {
     style?: any
 }
 
+export interface TorrentUpdates {
+    dwnldSpeed: number
+    peers: number
+    progress: number
+    other?: any
+}
+
 export interface Video {
     width: number
     height: number
@@ -18,7 +25,7 @@ export interface VideoTorProps extends Video {
     magnetURI: string
 
     loading?: any
-    showPrgrs?: boolean
+    ShowPrgrs?: (props: TorrentUpdates) => JSX.Element
 }
 
 export interface ImageTorrent extends Image {

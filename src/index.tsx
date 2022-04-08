@@ -5,10 +5,15 @@ import { Fragment, useEffect, useState, useRef } from 'react'
 // eslint-disable-next-line no-unused-vars
 import type WebTorrent from 'webtorrent'
 import { GetTorrent, PromiseTorrent } from './getTorrent'
-import { ImageTorrent, VideoTorProps } from './interfaces'
+import {
+    ImageTorrent,
+    TorrentUpdates as tUp,
+    VideoTorProps
+} from './interfaces'
 import ImageTest from './demo/ImageDownloadTime'
 import VideoTest from './demo/VideoDownloadTime'
 
+export type TorrentUpdates = tUp
 export const ImageDemo = ImageTest
 export const VideoDemo = VideoTest
 
@@ -16,16 +21,8 @@ export const getTorrent = GetTorrent
 export const promiseTorrent = PromiseTorrent
 
 export const ImgATor = (props: ImageTorrent) => {
-    let {
-        magnetURI,
-        height,
-        width,
-        style,
-        sizes,
-        srcset,
-        loading,
-        showPrgrs
-    } = props
+    let { magnetURI, height, width, style, sizes, srcset, loading, showPrgrs } =
+        props
     let [fileState, updateFile] = useState<WebTorrent.TorrentFile>(),
         [urlState, updateUrl] = useState<string>(),
         [downloadTime, updateTime] = useState<number>(0),
@@ -70,15 +67,17 @@ export const ImgATor = (props: ImageTorrent) => {
 }
 
 export const VidATor = (props: VideoTorProps) => {
-    let { showPrgrs, magnetURI, loading, width, height, type } = props
-    const videoElement = useRef(null)
-    let [urlState, updateUrl] = useState<string>(),
-        [downloadTime, updateTime] = useState<number>(0),
-        [peers, setPeers] = useState(0),
+    let { ShowPrgrs, magnetURI, loading, width, height, type } = props,
+        [urlState, updateUrl] = useState<string>(),
+        [dwnldSpeed, updateDwnldSpeed] = useState<number>(0),
+        [progress, updateProgress] = useState<number>(0),
+        [peers, setPeers] = useState(0)
+    const videoElement = useRef(null),
         mngTor = (torrent: WebTorrent.Torrent) => {
-            let timeStart = Date.now()
-            torrent.on('done', () => {
-                updateTime(Date.now() - timeStart)
+            torrent.on('download', () => {
+                let mbps = torrent.downloadSpeed * 1e-6
+                updateDwnldSpeed(mbps)
+                updateProgress(torrent.progress)
                 setPeers(torrent.numPeers)
             })
 
@@ -92,15 +91,15 @@ export const VidATor = (props: VideoTorProps) => {
     useEffect(() => {
         PromiseTorrent(magnetURI).then(mngTor)
         return () => {}
-    }, [])
+    }, [magnetURI])
     return (
-        <Fragment>
+        <div>
             {urlState ? null : loading}
             <video
                 width={width}
                 height={height}
                 controls
-                autoPlay
+                // autoPlay
                 muted
                 ref={videoElement}
                 src={urlState}
@@ -108,30 +107,34 @@ export const VidATor = (props: VideoTorProps) => {
                 <source type={type} />
                 Your browser does not support the video tag.
             </video>
-            {!showPrgrs ? null : (
-                <p>
-                    Time ms: {downloadTime} Peers: {peers}
-                </p>
+            {ShowPrgrs && (
+                <ShowPrgrs
+                    dwnldSpeed={dwnldSpeed}
+                    progress={progress}
+                    peers={peers}
+                    other={{ urlState }}
+                />
             )}
-        </Fragment>
+        </div>
     )
 }
 
 export const VidStrmATor = (props: VideoTorProps) => {
-    let { magnetURI, height, width, showPrgrs, type } = props
-    const videoElement = useRef(null),
-        [downloadTime, updateTime] = useState<number>(0),
+    let { magnetURI, height, width, ShowPrgrs, type } = props,
+        [dwnldSpeed, updateDwnldSpeed] = useState<number>(0),
+        [progress, updateProgress] = useState<number>(0),
         [peers, setPeers] = useState(0)
-
+    const videoElement = useRef(null)
     const opts = {
         autoplay: false,
         muted: true
     }
 
     let mngTor = (torrent: WebTorrent.Torrent) => {
-        let timeStart = Date.now()
-        torrent.on('done', () => {
-            updateTime(Date.now() - timeStart)
+        torrent.on('download', () => {
+            let mbps = torrent.downloadSpeed * 1e-6
+            updateDwnldSpeed(mbps)
+            updateProgress(torrent.progress)
             setPeers(torrent.numPeers)
         })
 
@@ -150,24 +153,27 @@ export const VidStrmATor = (props: VideoTorProps) => {
         return () => {}
     }, [])
     return (
-        <Fragment>
+        <div>
             <video
                 width={width}
                 height={height}
                 controls
                 muted
-                autoPlay
+                // autoPlay
                 ref={videoElement}
             >
                 <source type={type || 'video/mp4'} />
                 Your browser does not support the video tag.
             </video>
-            {!showPrgrs ? null : (
-                <p>
-                    Time ms: {downloadTime} Peers: {peers}
-                </p>
+            {ShowPrgrs && (
+                <ShowPrgrs
+                    dwnldSpeed={dwnldSpeed}
+                    progress={progress}
+                    peers={peers}
+                    other={{}}
+                />
             )}
-        </Fragment>
+        </div>
     )
 }
 
@@ -190,5 +196,58 @@ export const WrapATor = (props: any) => {
 
     return <Fragment>{childElements}</Fragment>
 }
+
+// export const TorrentWithUpdates = (props: {magnetURI: string}) => {
+//     let { magnetURI } = props,
+//         [urlState, updateUrl] = useState<string>(),
+//         [dwnldSpeed, updateDwnldSpeed] = useState<number>(0),
+//         [progress, updateProgress] = useState<number>(0),
+//         [peers, setPeers] = useState(0)
+
+//     const mngTor = (torrent: WebTorrent.Torrent) => {
+//             torrent.on('download', () => {
+//                 let mbps = torrent.downloadSpeed * 1e-6
+//                 updateDwnldSpeed(mbps)
+//                 updateProgress(torrent.progress)
+//                 setPeers(torrent.numPeers)
+//             })
+
+//             let file = torrent.files[0]
+//             file.getBlobURL((err, url) => {
+//                 if (err) throw err
+//                 updateUrl(url)
+//             })
+//         }
+
+//     useEffect(() => {
+//         PromiseTorrent(magnetURI).then(mngTor)
+//         return () => {}
+//     }, [magnetURI])
+//     return (
+//         <Fragment>
+//             {urlState ? null : loading}
+//             <video
+//                 width={width}
+//                 height={height}
+//                 controls
+//                 // autoPlay
+//                 muted
+//                 ref={videoElement}
+//                 src={urlState}
+//             >
+//                 <source type={type} />
+//                 Your browser does not support the video tag.
+//             </video>
+//             {ShowPrgrs && (
+//                 <ShowPrgrs
+//                     dwnldSpeed={dwnldSpeed}
+//                     progress={progress}
+//                     peers={peers}
+//                     other={{ urlState }}
+//                 />
+//             )}
+//         </Fragment>
+//     )
+// }
 
 // https://stackoverflow.com/questions/51657890/is-it-ok-to-use-a-wrapper-component-to-pass-props-in-react

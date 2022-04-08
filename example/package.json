@@ -22,6 +22,7 @@
     "atorable-react": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
+    "react-icons": "^4.3.1",
     "react-scripts": "file:../node_modules/react-scripts",
     "typescript": "file:../node_modules/typescript",
     "webtorrent": "^0.118.0"

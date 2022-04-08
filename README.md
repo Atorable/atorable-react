@@ -16,7 +16,7 @@
 
 # atorable-react
 
-Why? Decreased data from your server. Large files faster.
+Why? Decreased data from your server. Large files faster with more peers. More Decentralized.
 
 The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent][webtorrent] magnet uri for viewing or other custom uses. This works closely with [atorable-loader][atorable-loader-npm].
 
@@ -87,13 +87,13 @@ const Example = (props: any) => {
 ```
 
 ## Advanced usage
-See [Webtorrent Docs][webtorrent-docs] for more info
+Make a component that gets wrapped with `<WrapATor>` which gets the prop `torrent` a `<WebTorrent.Torrent>`, see [Webtorrent Docs][webtorrent-docs] for more info.
 
 ```tsx
 import React, { useEffect, useState Fragment } from 'react'
 import { WrapATor } from 'atorable-react'
 import hugeImage from './hugeImage.jpg';
-// Make a component that gets wrapped with <WrapATor> which gets the prop torrent a <WebTorrent.Torrent>
+
 const WrappedImg = (props: any) => {
   let {torrent, width, height, sizes, style} = props,
       [fileState, updateFile] = useState<WebTorrent.TorrentFile>(),
@@ -111,7 +111,7 @@ const WrappedImg = (props: any) => {
       manageFile(file)
     })
     return () => {}
-  }, [])
+  }, [torrent])
 
   return (
     <Fragment>

@@ -1,13 +1,16 @@
 import {
     // VidStrmATor
     // ImgATor,
-    VidATor
+    VidATor,
+    TorrentUpdates
     // WrapATor,
 } from 'atorable-react'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
-import { Public } from '@material-ui/icons/'
+import { MdOutlineBlurOn } from 'react-icons/md'
+
+// import { Public } from '@material-ui/icons/'
 // import Card from '@material-ui/core/Card'
 // import CardActions from '@material-ui/core/CardActions'
 // import CardContent from '@material-ui/core/CardContent'
@@ -40,11 +43,17 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+    header: {
+        backgroundColor: 'orange' // theme.palette.background.paper,
+    },
     main: {
         backgroundColor: '#5270d9' // theme.palette.background.paper,
     },
     icon: {
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
+        color: '#5270d9',
+        fontStyle: 'bold',
+        fontFamily: 'PT Sans, sans-serif'
     },
     heroContent: {
         backgroundColor: '#5270d9', // theme.palette.background.paper,
@@ -92,11 +101,25 @@ export default function Album() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar color='secondary' position='relative'>
-                <Toolbar>
-                    <Public className={classes.icon} />
-                    <Typography variant='h6' color='inherit' noWrap>
-                        atorable-react
+            <AppBar
+                className={classes.header}
+                color='secondary'
+                position='relative'
+            >
+                <Toolbar className={classes.icon}>
+                    <MdOutlineBlurOn
+                        className='navbar-icon'
+                        style={{ color: '#5270d9' }}
+                    />
+                    <Typography variant='h5' color='inherit' noWrap>
+                        {/* <h1
+                            style={{
+                                color: '#5270d9',
+                                fontFamily: 'PT Sans, sans-serif'
+                            }}
+                        > */}
+                        ATORABLE
+                        {/* </h1> */}
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -180,6 +203,7 @@ export default function Album() {
                         height={360}
                         type={'video/mp4'}
                         magnetURI={bunnyMagnet}
+                        ShowPrgrs={ShowPrgrsFunction}
                     />
 
                     {/* <VidStrmATor
@@ -235,6 +259,28 @@ export default function Album() {
             </footer>
             {/* End footer */}
         </React.Fragment>
+    )
+}
+
+const ShowPrgrsFunction = (props: TorrentUpdates) => {
+    const prevMaxRef = useRef(0)
+    let { dwnldSpeed, peers } = props,
+        [downloadMaxSpeed, updateDwnldMaxSpeed] = useState<number>(0)
+
+    useEffect(() => {
+        if (dwnldSpeed > prevMaxRef.current) {
+            prevMaxRef.current = dwnldSpeed
+            updateDwnldMaxSpeed(prevMaxRef.current)
+        }
+        return () => {}
+    }, [dwnldSpeed])
+
+    return (
+        <div style={{ clear: 'both' }}>
+            <p>
+                Mb/s: {downloadMaxSpeed.toFixed(1)} Peers: {peers}
+            </p>
+        </div>
     )
 }
 

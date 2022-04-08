@@ -59,19 +59,18 @@ export const PromiseTorrent = (magnetURI: string | { default: string }) => {
         }
         let torrentCheck = client.get(magnetURI)
         if (torrentCheck) {
-            let torrent = torrentCheck
-            if (torrent.name) {
-                resolve(torrent)
+            if (torrentCheck.name) {
+                resolve(torrentCheck)
             } else {
                 client.on('torrent', function (t: webT.Torrent) {
-                    if (torrent?.infoHash === t?.infoHash) {
+                    if (torrentCheck?.infoHash === t?.infoHash) {
                         resolve(t)
                     }
                 })
             }
         } else {
-            client.add(magnetURI, function (torrent: webT.Torrent) {
-                resolve(torrent)
+            client.add(magnetURI, function (t: webT.Torrent) {
+                resolve(t)
             })
         }
     })
