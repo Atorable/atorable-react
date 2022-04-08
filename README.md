@@ -24,8 +24,6 @@ The `atorable-react` package is a [React](https://reactjs.org/) component that p
 
 ## Updates / Upgrade to Version 1.0.0 (props)
 magnetLink ==> magnetURI
-width: string ==> number
-height: string ==> number
 type: string ==> 'video/mp4' or 'video/webm' or 'video/ogg'
 
 added ability to set loading component

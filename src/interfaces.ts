@@ -1,8 +1,8 @@
 import type WebTorrent from 'webtorrent'
 
 export interface Image {
-    width?: number
-    height?: number
+    width?: string
+    height?: string
     sizes?: string
     srcset?: string
     style?: any
@@ -16,8 +16,8 @@ export interface TorrentUpdates {
 }
 
 export interface Video {
-    width: number
-    height: number
+    width: string
+    height: string
     type: string // video/mp4 or video/webm or video/ogg
 }
 
