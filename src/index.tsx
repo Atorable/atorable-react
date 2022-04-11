@@ -138,14 +138,15 @@ export const VidStrmATor = (props: VideoTorProps) => {
             setPeers(torrent.numPeers)
         })
 
-        let file = torrent.files[0]
-        // if (file.name.includes('.mp4')) {
-        // @ts-ignore: Object is possibly 'null'. // TODO: fix this
-        file.renderTo(videoElement.current, opts, function (err, elem) {
-            if (err) throw err // file failed to download or display in the DOM
-            console.log('New DOM node with the content', elem)
+        torrent.files.forEach((file) => {
+            if (file.name.includes('.mp4')) {
+                // @ts-ignore: Object is possibly 'null'. // TODO: fix this
+                file.renderTo(videoElement.current, opts, function (err, elem) {
+                    if (err) throw err // file failed to download or display in the DOM
+                    console.log('New DOM node with the content', elem)
+                })
+            }
         })
-        // }
     }
 
     useEffect(() => {
