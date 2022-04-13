@@ -41,8 +41,8 @@ const VideoTest = (props: {
     src: string
     title?: string
     type: string
-    height?: number
-    width?: number
+    height?: string
+    width?: string
     loading?: any
 }) => {
     const videoElement = useRef(null)
