@@ -85,7 +85,7 @@ const Example = (props: any) => {
 ```
 
 ## Advanced usage
-Make a component that gets wrapped with `<WrapATor>` which gets the prop `torrent` a `<WebTorrent.Torrent>`, see [Webtorrent Docs][webtorrent-docs] for more info.
+Make a component that gets wrapped with `<WrapATor>` which gets the props `torrent, dwnldSpeed, progress, peers, done` a `<WebTorrent.Torrent>`, see [Webtorrent Docs][webtorrent-docs] for more info.
 
 ```tsx
 import React, { useEffect, useState Fragment } from 'react'
@@ -93,29 +93,23 @@ import { WrapATor } from 'atorable-react'
 import hugeImage from './hugeImage.jpg';
 
 const WrappedImg = (props: any) => {
-  let {torrent, width, height, sizes, style} = props,
-      [fileState, updateFile] = useState<WebTorrent.TorrentFile>(),
-      [urlState, updateUrl] = useState<string>(),
-      manageFile = (file: WebTorrent.TorrentFile) => {
-        updateFile(file)
-        file.getBlobURL((err, url) => {
+  let {torrent, width, height, sizes, style, done} = props,
+      [urlState, updateUrl] = useState<string>()
+
+    useEffect(() => {
+      let file = torrent.files[0]
+
+      file.getBlobURL((err, url) => {
           if (err) throw err
           updateUrl(url)
-        })
-      }
-
-  useEffect(() => {
-    torrent.files.forEach((file: WebTorrent.TorrentFile) => {
-      manageFile(file)
-    })
-    return () => {}
-  }, [torrent])
+      })
+        return () => {}
+    }, [done])
 
   return (
     <Fragment>
       <img
         src={urlState}
-        alt={fileState?.name}
         width={width}
         height={height}
         sizes={sizes}
@@ -129,7 +123,7 @@ const Example = (props: any) => {
   return (
     <div>
       <WrapATor magnetURI={hugeImage}>
-        <WrappedImg width={320} height={240} style={{border: 'solid'}} />
+        <WrappedImg width={'320'} height={'240'} style={{border: 'solid'}} />
       </WrapATor>
     </div>
   )

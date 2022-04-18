@@ -34,3 +34,14 @@ export interface ImageTorrent extends Image {
     loading?: any
     showPrgrs?: boolean
 }
+
+export interface VideoTorPropsWrap extends Video {
+    torrent?: WebTorrent.Torrent
+    dwnldSpeed?: number
+    peers?: number
+    progress?: number
+    done?: boolean
+
+    loading?: any
+    ShowPrgrs?: (props: TorrentUpdates) => JSX.Element
+}

@@ -8,7 +8,8 @@ import { GetTorrent, PromiseTorrent } from './getTorrent'
 import {
     ImageTorrent,
     TorrentUpdates as tUp,
-    VideoTorProps
+    VideoTorProps,
+    VideoTorPropsWrap
 } from './interfaces'
 import ImageTest from './demo/ImageDownloadTime'
 import VideoTest from './demo/VideoDownloadTime'
@@ -66,32 +67,34 @@ export const ImgATor = (props: ImageTorrent) => {
     )
 }
 
-export const VidATor = (props: VideoTorProps) => {
-    let { ShowPrgrs, magnetURI, loading, width, height, type } = props,
-        [urlState, updateUrl] = useState<string>(),
-        [dwnldSpeed, updateDwnldSpeed] = useState<number>(0),
-        [progress, updateProgress] = useState<number>(0),
-        [peers, setPeers] = useState(0)
-    const videoElement = useRef(null),
-        mngTor = (torrent: WebTorrent.Torrent) => {
-            torrent.on('download', () => {
-                let mbps = torrent.downloadSpeed * 1e-6
-                updateDwnldSpeed(mbps)
-                updateProgress(torrent.progress)
-                setPeers(torrent.numPeers)
-            })
+export const VidATorWrapped = (props: VideoTorPropsWrap) => {
+    let {
+            ShowPrgrs,
+            loading,
+            width,
+            height,
+            type,
+            torrent,
+            dwnldSpeed,
+            progress,
+            peers,
+            done
+        } = props,
+        [urlState, updateUrl] = useState<string>()
+    const videoElement = useRef(null)
 
+    useEffect(() => {
+        if (torrent) {
             let file = torrent.files[0]
+            // @ts-ignore: Object is possibly 'null'. // TODO: fix this
             file.getBlobURL((err, url) => {
                 if (err) throw err
                 updateUrl(url)
             })
         }
-
-    useEffect(() => {
-        PromiseTorrent(magnetURI).then(mngTor)
         return () => {}
-    }, [magnetURI])
+    }, [done])
+
     return (
         <div>
             {urlState ? null : loading}
@@ -109,9 +112,9 @@ export const VidATor = (props: VideoTorProps) => {
             </video>
             {ShowPrgrs && (
                 <ShowPrgrs
-                    dwnldSpeed={dwnldSpeed}
-                    progress={progress}
-                    peers={peers}
+                    dwnldSpeed={dwnldSpeed || 0}
+                    progress={progress || 0}
+                    peers={peers || 0}
                     other={{ urlState }}
                 />
             )}
@@ -184,10 +187,43 @@ export const WrapATor = (props: any) => {
         mngTor = (torrent: WebTorrent.Torrent) => {
             const chldElements = React.Children.map(children, (child) =>
                 React.cloneElement(child, {
-                    torrent: torrent
+                    torrent: torrent,
+                    dwnldSpeed: 0,
+                    progress: 0,
+                    peers: 0,
+                    done: false
                 })
             )
             updateChildElements(chldElements)
+
+            torrent.on('download', () => {
+                let { downloadSpeed, progress, numPeers } = torrent,
+                    mbps = downloadSpeed * 1e-6
+                const chldElements = React.Children.map(children, (child) =>
+                    React.cloneElement(child, {
+                        torrent: torrent,
+                        dwnldSpeed: mbps,
+                        progress,
+                        peers: numPeers,
+                        done: false
+                    })
+                )
+                updateChildElements(chldElements)
+            })
+
+            torrent.on('done', () => {
+                const chldElements = React.Children.map(children, (child) => {
+                    let { torrent, dwnldSpeed, progress, peers } = child.props
+                    return React.cloneElement(child, {
+                        torrent,
+                        dwnldSpeed,
+                        progress,
+                        peers,
+                        done: true
+                    })
+                })
+                updateChildElements(chldElements)
+            })
         }
 
     useEffect(() => {
@@ -198,57 +234,52 @@ export const WrapATor = (props: any) => {
     return <Fragment>{childElements}</Fragment>
 }
 
-// export const TorrentWithUpdates = (props: {magnetURI: string}) => {
-//     let { magnetURI } = props,
-//         [urlState, updateUrl] = useState<string>(),
-//         [dwnldSpeed, updateDwnldSpeed] = useState<number>(0),
-//         [progress, updateProgress] = useState<number>(0),
-//         [peers, setPeers] = useState(0)
+export const ATorWrap = (props: any) => {
+    const { children, magnetURI } = props
+    let [childElements, updateChildElements] = useState<any>(),
+        mngTor = (torrent: WebTorrent.Torrent) => {
+            const chldElements = React.Children.map(children, (child) =>
+                React.cloneElement(child, {
+                    torrent: torrent,
+                    done: false
+                })
+            )
+            updateChildElements(chldElements)
 
-//     const mngTor = (torrent: WebTorrent.Torrent) => {
-//             torrent.on('download', () => {
-//                 let mbps = torrent.downloadSpeed * 1e-6
-//                 updateDwnldSpeed(mbps)
-//                 updateProgress(torrent.progress)
-//                 setPeers(torrent.numPeers)
-//             })
+            torrent.on('done', () => {
+                const chldElements = React.Children.map(children, (child) => {
+                    let { torrent } = child.props
+                    return React.cloneElement(child, {
+                        torrent,
+                        done: true
+                    })
+                })
+                updateChildElements(chldElements)
+            })
+        }
 
-//             let file = torrent.files[0]
-//             file.getBlobURL((err, url) => {
-//                 if (err) throw err
-//                 updateUrl(url)
-//             })
-//         }
+    useEffect(() => {
+        PromiseTorrent(magnetURI).then(mngTor)
+        return () => {}
+    }, [])
 
-//     useEffect(() => {
-//         PromiseTorrent(magnetURI).then(mngTor)
-//         return () => {}
-//     }, [magnetURI])
-//     return (
-//         <Fragment>
-//             {urlState ? null : loading}
-//             <video
-//                 width={width}
-//                 height={height}
-//                 controls
-//                 // autoPlay
-//                 muted
-//                 ref={videoElement}
-//                 src={urlState}
-//             >
-//                 <source type={type} />
-//                 Your browser does not support the video tag.
-//             </video>
-//             {ShowPrgrs && (
-//                 <ShowPrgrs
-//                     dwnldSpeed={dwnldSpeed}
-//                     progress={progress}
-//                     peers={peers}
-//                     other={{ urlState }}
-//                 />
-//             )}
-//         </Fragment>
-//     )
-// }
+    return <Fragment>{childElements}</Fragment>
+}
+
+export const VidATor = (props: VideoTorProps) => {
+    let { ShowPrgrs, magnetURI, loading, width, height, type } = props
+
+    return (
+        <WrapATor magnetURI={magnetURI}>
+            <VidATorWrapped
+                loading={loading}
+                width={width}
+                height={height}
+                type={type}
+                ShowPrgrs={ShowPrgrs}
+            />
+        </WrapATor>
+    )
+}
 
 // https://stackoverflow.com/questions/51657890/is-it-ok-to-use-a-wrapper-component-to-pass-props-in-react
