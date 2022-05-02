@@ -185,15 +185,17 @@ export const WrapATor = (props: any) => {
     const { children, magnetURI } = props
     let [childElements, updateChildElements] = useState<any>(),
         mngTor = (torrent: WebTorrent.Torrent) => {
-            const chldElements = React.Children.map(children, (child) =>
-                React.cloneElement(child, {
+            const chldElements = React.Children.map(children, (child) => {
+                let { downloadSpeed, progress, numPeers, done } = torrent,
+                    mbps = downloadSpeed * 1e-6
+                return React.cloneElement(child, {
                     torrent: torrent,
-                    dwnldSpeed: 0,
-                    progress: 0,
-                    peers: 0,
-                    done: false
+                    dwnldSpeed: mbps,
+                    progress,
+                    peers: numPeers,
+                    done: done
                 })
-            )
+            })
             updateChildElements(chldElements)
 
             torrent.on('download', () => {
