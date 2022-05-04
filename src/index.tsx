@@ -199,7 +199,7 @@ export const WrapATor = (props: any) => {
             updateChildElements(chldElements)
 
             torrent.on('download', () => {
-                let { downloadSpeed, progress, numPeers } = torrent,
+                let { downloadSpeed, progress, numPeers, done } = torrent,
                     mbps = downloadSpeed * 1e-6
                 const chldElements = React.Children.map(children, (child) =>
                     React.cloneElement(child, {
@@ -207,7 +207,7 @@ export const WrapATor = (props: any) => {
                         dwnldSpeed: mbps,
                         progress,
                         peers: numPeers,
-                        done: false
+                        done: done
                     })
                 )
                 updateChildElements(chldElements)
@@ -215,13 +215,14 @@ export const WrapATor = (props: any) => {
 
             torrent.on('done', () => {
                 const chldElements = React.Children.map(children, (child) => {
-                    let { torrent, dwnldSpeed, progress, peers } = child.props
+                    let { downloadSpeed, progress, numPeers, done } = torrent,
+                        mbps = downloadSpeed * 1e-6
                     return React.cloneElement(child, {
                         torrent,
-                        dwnldSpeed,
+                        dwnldSpeed: mbps,
                         progress,
-                        peers,
-                        done: true
+                        peers: numPeers,
+                        done: done
                     })
                 })
                 updateChildElements(chldElements)
