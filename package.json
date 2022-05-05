@@ -32,6 +32,7 @@
         "deploy": "gh-pages -d example/build"
     },
     "devDependencies": {
+        "@types/webtorrent": "^0.109.3",
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.5.0",
         "@testing-library/user-event": "^7.2.1",
@@ -67,9 +68,8 @@
         "dist"
     ],
     "dependencies": {
-        "@types/webtorrent": "^0.109.3",
         "react": "^17.0.2",
-        "webtorrent": "^1.8.13"
+        "webtorrent": "^0.118.0"
     },
     "funding": [
         {
