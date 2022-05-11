@@ -10,6 +10,7 @@ export interface Image {
 
 export interface TorrentUpdates {
     dwnldSpeed: number
+    downloaded?: number
     peers: number
     progress: number
     other?: any
@@ -38,6 +39,7 @@ export interface ImageTorrent extends Image {
 export interface VideoTorPropsWrap extends Video {
     torrent?: WebTorrent.Torrent
     dwnldSpeed?: number
+    downloaded?: number
     peers?: number
     progress?: number
     done?: boolean
