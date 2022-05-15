@@ -32,7 +32,6 @@
         "deploy": "gh-pages -d example/build"
     },
     "devDependencies": {
-        "@types/webtorrent": "^0.109.3",
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.5.0",
         "@testing-library/user-event": "^7.2.1",
@@ -40,6 +39,7 @@
         "@types/node": "^12.12.38",
         "@types/react": "^16.9.27",
         "@types/react-dom": "^16.9.7",
+        "@types/webtorrent": "^0.109.3",
         "@typescript-eslint/eslint-plugin": "^2.26.0",
         "@typescript-eslint/parser": "^2.26.0",
         "babel-eslint": "^10.0.3",
@@ -59,7 +59,7 @@
         "microbundle-crl": "^0.13.10",
         "npm-run-all": "^4.1.5",
         "prettier": "^2.0.4",
-        "react-dom": "^17.0.2",
+        "react-dom": "^18.1.0",
         "react-scripts": "^3.4.1",
         "typescript": "^3.7.5",
         "videostream": "^3.2.2"
@@ -68,7 +68,7 @@
         "dist"
     ],
     "dependencies": {
-        "react": "^17.0.2",
+        "react": "^18.1.0",
         "webtorrent": "^0.118.0"
     },
     "funding": [
