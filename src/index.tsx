@@ -183,6 +183,7 @@ export const VidStrmATor = (props: VideoTorProps) => {
     )
 }
 
+// TODO: torrent.on('wire', function (wire) {}) // for when peers connect
 export const WrapATor = (props: any) => {
     const { children, magnetURI } = props
     let [childElements, updateChildElements] = useState<any>(),
