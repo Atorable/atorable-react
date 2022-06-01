@@ -24,6 +24,7 @@ export interface Video {
 
 export interface VideoTorProps extends Video {
     magnetURI: string
+    autoplay?: boolean
 
     loading?: any
     ShowPrgrs?: (props: TorrentUpdates) => JSX.Element

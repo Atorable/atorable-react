@@ -125,13 +125,13 @@ export const VidATorWrapped = (props: VideoTorPropsWrap) => {
 }
 
 export const VidStrmATor = (props: VideoTorProps) => {
-    let { magnetURI, height, width, ShowPrgrs, type } = props,
+    let { magnetURI, height, width, ShowPrgrs, type, autoplay } = props,
         [dwnldSpeed, updateDwnldSpeed] = useState<number>(0),
         [progress, updateProgress] = useState<number>(0),
         [peers, setPeers] = useState(0)
     const videoElement = useRef(null)
     const opts = {
-        autoplay: false,
+        autoplay: autoplay,
         muted: true
     }
 

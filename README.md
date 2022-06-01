@@ -16,7 +16,7 @@
 
 # atorable-react
 
-Why? Decreased data from your server. Large files faster with more peers. More Decentralized.
+Why? Decreased data from your server or take that a step further and use our server, see our services [Atorable.com](https://www.atorable.com/). Large files faster with more peers. More Decentralized.
 
 The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent][webtorrent] magnet uri for viewing or other custom uses. This works closely with [atorable-loader][atorable-loader-npm].
 
@@ -61,7 +61,7 @@ const Example = (props: any) => {
 }
 ```
 
-## Explicit usage
+## Magnet URI usage
 
 ```tsx
 import React from 'react'
