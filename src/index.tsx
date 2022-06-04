@@ -249,6 +249,30 @@ export const WrapATor = (props: any) => {
                 })
                 updateChildElements(chldElements)
             })
+
+            torrent.on('wire', function (wire) {
+                const chldElements = React.Children.map(children, (child) => {
+                    let {
+                            downloadSpeed,
+                            progress,
+                            numPeers,
+                            done,
+                            downloaded
+                        } = torrent,
+                        mbps = downloadSpeed * 1e-6
+                    downloaded = downloaded * 1e-6
+
+                    return React.cloneElement(child, {
+                        torrent,
+                        dwnldSpeed: mbps,
+                        downloaded,
+                        progress,
+                        peers: numPeers,
+                        done: done
+                    })
+                })
+                updateChildElements(chldElements)
+            })
         }
 
     useEffect(() => {
