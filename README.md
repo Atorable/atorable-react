@@ -98,12 +98,13 @@ const WrappedImg = (props: any) => {
 
     useEffect(() => {
       let file = torrent.files[0]
-
-      file.getBlobURL((err, url) => {
-          if (err) throw err
-          updateUrl(url)
-      })
-        return () => {}
+      if (file) {
+        file.getBlobURL((err, url) => {
+            if (err) throw err
+            updateUrl(url)
+        })
+      }
+      return () => {}
     }, [done])
 
   return (

@@ -33,13 +33,15 @@ export const ImgATor = (props: ImageTorrent) => {
             let file = torrent.files[0],
                 timeStart = Date.now()
 
-            updateFile(file)
-            file.getBlobURL((err, url) => {
-                if (err) throw err
-                updateTime(Date.now() - timeStart)
-                setPeers(torrent.numPeers)
-                updateUrl(url)
-            })
+            if (file) {
+                updateFile(file)
+                file.getBlobURL((err, url) => {
+                    if (err) throw err
+                    updateTime(Date.now() - timeStart)
+                    setPeers(torrent.numPeers)
+                    updateUrl(url)
+                })
+            }
         }
 
     useEffect(() => {
@@ -87,11 +89,12 @@ export const VidATorWrapped = (props: VideoTorPropsWrap) => {
     useEffect(() => {
         if (torrent) {
             let file = torrent.files[0]
-            // @ts-ignore: Object is possibly 'null'. // TODO: fix this
-            file.getBlobURL((err, url) => {
-                if (err) throw err
-                updateUrl(url)
-            })
+            if (file) {
+                file.getBlobURL((err, url) => {
+                    if (err) throw err
+                    updateUrl(url)
+                })
+            }
         }
         return () => {}
     }, [done])

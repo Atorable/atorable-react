@@ -20,11 +20,11 @@ export interface Video {
     width: string
     height: string
     type: string // video/mp4 or video/webm or video/ogg
+    autoplay?: boolean
 }
 
 export interface VideoTorProps extends Video {
     magnetURI: string
-    autoplay?: boolean
 
     loading?: any
     ShowPrgrs?: (props: TorrentUpdates) => JSX.Element
