@@ -250,7 +250,7 @@ export const WrapATor = (props: any) => {
                 updateChildElements(chldElements)
             })
 
-            torrent.on('wire', function (wire) {
+            torrent.on('wire', function () {
                 const chldElements = React.Children.map(children, (child) => {
                     let {
                             downloadSpeed,
