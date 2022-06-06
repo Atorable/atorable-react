@@ -1,6 +1,9 @@
 {
-    "name": "atorable-react",
+    "name": "@atorable-main/atorable-react",
     "version": "1.0.1",
+    "publishConfig": {
+        "@atorable-main:registry": "https://gitlab.com/api/v4/projects/33999186/packages/npm/"
+    },
     "description": "View/Use Webtorrent files (video, image, etc)",
     "author": {
         "name": "Atorable",

@@ -1,0 +1,10 @@
+image: node:latest
+
+stages:
+    - deploy
+
+deploy:
+    stage: deploy
+    script:
+        - npm install rimraf
+        - GITLAB_AUTH_TOKEN="${CI_JOB_TOKEN}" npm publish
