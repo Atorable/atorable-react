@@ -6,6 +6,7 @@ import { Fragment, useEffect, useState, useRef } from 'react'
 import type WebTorrent from 'webtorrent'
 import { GetTorrent, PromiseTorrent } from './getTorrent'
 import {
+    DownloaderOuterProps,
     ImageTorrent,
     TorrentUpdates as tUp,
     VideoTorProps,
@@ -13,6 +14,7 @@ import {
 } from './interfaces'
 import ImageTest from './demo/ImageDownloadTime'
 import VideoTest from './demo/VideoDownloadTime'
+import { Downloader } from './downloader'
 
 export type TorrentUpdates = tUp
 export const ImageDemo = ImageTest
@@ -187,7 +189,7 @@ export const VidStrmATor = (props: VideoTorProps) => {
 }
 
 // TODO: torrent.on('wire', function (wire) {}) // for when peers connect
-export const WrapATor = (props: any) => {
+export const ATorWrap = (props: { children: any; magnetURI: string }) => {
     const { children, magnetURI } = props
     let [childElements, updateChildElements] = useState<any>(),
         mngTor = (torrent: WebTorrent.Torrent) => {
@@ -276,14 +278,14 @@ export const WrapATor = (props: any) => {
         }
 
     useEffect(() => {
-        PromiseTorrent(magnetURI).then(mngTor)
+        if (magnetURI) PromiseTorrent(magnetURI).then(mngTor)
         return () => {}
-    }, [])
+    }, [magnetURI])
 
     return <Fragment>{childElements}</Fragment>
 }
 
-export const ATorWrap = (props: any) => {
+export const WrapATor = (props: any) => {
     const { children, magnetURI } = props
     let [childElements, updateChildElements] = useState<any>(),
         mngTor = (torrent: WebTorrent.Torrent) => {
@@ -319,7 +321,7 @@ export const VidATor = (props: VideoTorProps) => {
     let { ShowPrgrs, magnetURI, loading, width, height, type } = props
 
     return (
-        <WrapATor magnetURI={magnetURI}>
+        <ATorWrap magnetURI={magnetURI}>
             <VidATorWrapped
                 loading={loading}
                 width={width}
@@ -327,8 +329,23 @@ export const VidATor = (props: VideoTorProps) => {
                 type={type}
                 ShowPrgrs={ShowPrgrs}
             />
-        </WrapATor>
+        </ATorWrap>
     )
 }
+
+export const ATorDownloader = (props: DownloaderOuterProps) => {
+    let { magnetURI, startImmediately, ShowPrgrs } = props,
+        magLink = startImmediately ? magnetURI : ''
+
+    return (
+        <ATorWrap magnetURI={magLink}>
+            <Downloader ShowPrgrs={ShowPrgrs} />
+        </ATorWrap>
+    )
+}
+
+export const ATorVid = VidATor
+export const ATorVidStrm = VidStrmATor
+export const ATorImg = ImgATor
 
 // https://stackoverflow.com/questions/51657890/is-it-ok-to-use-a-wrapper-component-to-pass-props-in-react

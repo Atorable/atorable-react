@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { promiseTorrent } from '.'
 
-describe('ExampleComponent', () => {
-  it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
+describe('PromiseTorrent', () => {
+    it('is truthy', () => {
+        expect(promiseTorrent).toBeTruthy()
+    })
 })

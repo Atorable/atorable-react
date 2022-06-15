@@ -48,3 +48,32 @@ export interface VideoTorPropsWrap extends Video {
     loading?: any
     ShowPrgrs?: (props: TorrentUpdates) => JSX.Element
 }
+
+export interface TorPropsWrap {
+    torrent?: WebTorrent.Torrent
+    dwnldSpeed?: number
+    downloaded?: number
+    peers?: number
+    progress?: number
+    done?: boolean
+}
+
+export interface DownloaderLinkProps {
+    filename: string
+    url: string
+}
+
+export interface DownloaderProps extends TorPropsWrap {
+    DownloadLink?: (props: DownloaderLinkProps) => JSX.Element
+
+    ShowPrgrs?: (props: TorrentUpdates) => JSX.Element
+}
+
+export interface DownloaderOuterProps {
+    magnetURI: string
+    DownloadLink?: (props: DownloaderLinkProps) => JSX.Element
+
+    startImmediately: boolean // start downloading immediately
+
+    ShowPrgrs?: (props: TorrentUpdates) => JSX.Element
+}
