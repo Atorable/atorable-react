@@ -16,9 +16,10 @@
 
 # atorable-react
 
-Why? Decreased data from your server or take that a step further and use our server, see our services [Atorable.com](https://www.atorable.com/). Large files faster with more peers. More Decentralized.
+High data costs? Slow PageSpeed? High server load? Need a solution for viral content?
+[Atorable.com](https://www.atorable.com/). Serve content better. 
 
-The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent][webtorrent] magnet uri for viewing or other custom uses. This works closely with [atorable-loader][atorable-loader-npm].
+The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent][webtorrent] magnet uri. As more users visit your site the more users serve up your content. More users makes faster downloads, less server load, lower data costs. PageSpeed will also increases by not blocking page load. Using [Webpack][webpack]? Try [atorable-loader][atorable-loader-npm].
 
 #### [Demo][atorable-react]
 
@@ -26,8 +27,10 @@ The `atorable-react` package is a [React](https://reactjs.org/) component that p
 magnetLink ==> magnetURI
 type: string ==> 'video/mp4' or 'video/webm' or 'video/ogg'
 
-added ability to set loading component
+Optional: added ability to set loading component
+```bash 
 loading={<h2 style={{ color: 'orange' }}>Loading</ h2>}
+```
 
 
 
@@ -37,7 +40,7 @@ loading={<h2 style={{ color: 'orange' }}>Loading</ h2>}
 npm install --save atorable-react
 ```
 ## Primary usage w/ [atorable-loader][atorable-loader-npm]
-For images and video (streaming limited to .mp4)
+Webpack loader converts files to magnetURI. Below are some example usage with images and video (streaming limited to .mp4)
 see advanced usage for more flexibility
 
 ```tsx
@@ -80,20 +83,20 @@ const Example = (props: any) => {
       <ATorVidStrm width={'320'} height={'240'} type={'video/mp4'} magnetURI={sintel} />
 
       <ATorImg magnetURI={imgPath} style={{border: 'solid'}} />
+
       <ATorDownloader
           magnetURI={iso}
-          startImmediately={true}
-          ShowPrgrs={ShowPrgrs} // example progress fn at bottom of readme
-          DownloadLink={DownloadLink}
+          startDownload={true}        // default false (toggle to true to start download)
+          ShowPrgrs={ShowPrgrs}       // example at bottom of readme
+          DownloadLink={DownloadLink} // example at bottom of readme
         />
-    
     </div>
   )
 }
 ```
 
 ## Advanced usage
-Make a component that gets wrapped with `<ATorWrap>` which gets the props `torrent, dwnldSpeed, progress, peers, done` a `<WebTorrent.Torrent>`, see [Webtorrent Docs][webtorrent-docs] for more info.
+Make a component to get wrapped with `<ATorWrap>` and access props `torrent, dwnldSpeed, downloaded, progress, peers, done`, see [Webtorrent Docs][webtorrent-docs] for more info on dealing with torrent objects.
 
 ```tsx
 import React, { useEffect, useState Fragment } from 'react'
@@ -160,10 +163,10 @@ export const ShowPrgrs = (props: TorrentUpdates) => {
           }}
         ></div>
       </div>
-      <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>Downloaded: {downloaded?.toFixed(1)} Mb</div>
         <div>Peers: {peers}</div>
-      </p>
+      </div>
     </div>
   )
 }
@@ -192,6 +195,7 @@ const DownloadLink = (props: {
 
 [webtorrent]: https://webtorrent.io/
 [webtorrent-docs]: https://webtorrent.io/docs
+[webpack]: https://webpack.js.org/
 
 [atorable-react]: https://atorable.github.io/atorable-react/
 [atorable-react-source]: https://github.com/Atorable/atorable-react

@@ -334,8 +334,8 @@ export const VidATor = (props: VideoTorProps) => {
 }
 
 export const ATorDownloader = (props: DownloaderOuterProps) => {
-    let { magnetURI, startImmediately, ShowPrgrs } = props,
-        magLink = startImmediately ? magnetURI : ''
+    let { magnetURI, startDownload, ShowPrgrs } = props,
+        magLink = startDownload ? magnetURI : ''
 
     return (
         <ATorWrap magnetURI={magLink}>

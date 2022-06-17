@@ -73,7 +73,7 @@ export interface DownloaderOuterProps {
     magnetURI: string
     DownloadLink?: (props: DownloaderLinkProps) => JSX.Element
 
-    startImmediately: boolean // start downloading immediately
+    startDownload: boolean // start downloading
 
     ShowPrgrs?: (props: TorrentUpdates) => JSX.Element
 }
