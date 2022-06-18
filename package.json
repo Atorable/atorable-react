@@ -1,6 +1,6 @@
 {
     "name": "@atorable/atorable-react",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "publishConfig": {
         "@atorable:registry": "https://gitlab.com/api/v4/projects/34067611/packages/npm/"
     },
