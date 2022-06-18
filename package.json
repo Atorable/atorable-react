@@ -66,14 +66,14 @@
         "react-scripts": "^3.4.1",
         "typescript": "^3.7.5",
         "videostream": "^3.2.2",
-        "webtorrent": "^0.118.0"
+        "webtorrent": "^1.8.22"
     },
     "files": [
         "dist"
     ],
     "peerDependencies": {
         "react": "16.8 - 18",
-        "webtorrent": "^0.118.0"
+        "webtorrent": "^1.8.22"
     },
     "funding": [
         {

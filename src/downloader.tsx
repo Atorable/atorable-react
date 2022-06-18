@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { DownloaderProps } from './interfaces'
 

@@ -1,11 +1,5 @@
-import {
-    // VidStrmATor
-    // ImgATor,
-    VidATor,
-    TorrentUpdates
-    // WrapATor,
-} from 'atorable-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { VidATor } from 'atorable-react'
+import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import { MdOutlineBlurOn } from 'react-icons/md'
@@ -25,6 +19,7 @@ import Link from '@material-ui/core/Link'
 import img from './atorable.png'
 import bunny from './bunny.mp4'
 import bunnyTor from './bunny.torrent'
+import { ShowPrgrs } from './ShowPrgrs'
 
 function Copyright() {
     return (
@@ -90,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 // let imgPath =
 //   'magnet:?xt=urn:btih:dc94d0d5b4a4ca82bbe4d335ddb65ef7ea3de374&dn=DSC4470.jpg&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=http%3A%2F%2Flocalhost%3A8080%2Fassets%2Fimg%2FDSC4470.jpg&xs=http%3A%2F%2Flocalhost%3A8080%2Fassets%2Fimg%2FDSC4470.torrent'
 // let sintel =
-//   'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
+//     'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 // let oceanFish =
 //   'magnet:?xt=urn:btih:17a613e4a81e52cf41cab72157a24faecaa8f2f5&dn=GOPR0093.mp4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=http%3A%2F%2Flocalhost%3A8080%2Fassets%2Fimg%2FGOPR0093.mp4&xs=http%3A%2F%2Flocalhost%3A8080%2Fassets%2Fimg%2FGOPR0093.torrent'
 let bunnyMagnet =
@@ -199,11 +194,11 @@ export default function Album() {
                 </div>
                 <Container className={classes.cardGrid} maxWidth='md'>
                     <VidATor
-                        width={480}
-                        height={360}
+                        width={'480'}
+                        height={'360'}
                         type={'video/mp4'}
                         magnetURI={bunnyMagnet}
-                        ShowPrgrs={ShowPrgrsFunction}
+                        ShowPrgrs={ShowPrgrs}
                     />
 
                     {/* <VidStrmATor
@@ -259,28 +254,6 @@ export default function Album() {
             </footer>
             {/* End footer */}
         </React.Fragment>
-    )
-}
-
-const ShowPrgrsFunction = (props: TorrentUpdates) => {
-    const prevMaxRef = useRef(0)
-    let { dwnldSpeed, peers } = props,
-        [downloadMaxSpeed, updateDwnldMaxSpeed] = useState<number>(0)
-
-    useEffect(() => {
-        if (dwnldSpeed > prevMaxRef.current) {
-            prevMaxRef.current = dwnldSpeed
-            updateDwnldMaxSpeed(prevMaxRef.current)
-        }
-        return () => {}
-    }, [dwnldSpeed])
-
-    return (
-        <div style={{ clear: 'both' }}>
-            <p>
-                Mb/s: {downloadMaxSpeed.toFixed(1)} Peers: {peers}
-            </p>
-        </div>
     )
 }
 

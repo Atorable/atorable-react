@@ -63,7 +63,9 @@ export const PromiseTorrent = (magnetURI: string | { default: string }) => {
                 resolve(torrentCheck)
             } else {
                 client.on('torrent', function (t: webT.Torrent) {
-                    if (torrentCheck?.infoHash === t?.infoHash) {
+                    if (
+                        (torrentCheck as webT.Torrent)?.infoHash === t?.infoHash
+                    ) {
                         resolve(t)
                     }
                 })
