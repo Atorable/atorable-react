@@ -2,7 +2,7 @@ import { VidATor } from 'atorable-react'
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
-import { MdOutlineBlurOn } from 'react-icons/md'
+// import { MdOutlineBlurOn } from 'react-icons/md'
 
 // import { Public } from '@material-ui/icons/'
 // import Card from '@material-ui/core/Card'
@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
-import img from './atorable.png'
+import img from './atorable-2.png'
 import bunny from './bunny.mp4'
 import bunnyTor from './bunny.torrent'
 import { ShowPrgrs } from './ShowPrgrs'
@@ -39,19 +39,18 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     header: {
-        backgroundColor: 'orange' // theme.palette.background.paper,
+        backgroundColor: '#1c2237' // theme.palette.background.paper,
     },
     main: {
         backgroundColor: '#5270d9' // theme.palette.background.paper,
     },
     icon: {
         marginRight: theme.spacing(2),
-        color: '#5270d9',
+        color: 'orange',
         fontStyle: 'bold',
         fontFamily: 'PT Sans, sans-serif'
     },
     heroContent: {
-        backgroundColor: '#5270d9', // theme.palette.background.paper,
         padding: theme.spacing(8, 0, 6)
         // font: 'helvetica' // movie about this font
     },
@@ -70,7 +69,8 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column'
     },
     cardMedia: {
-        paddingTop: '56.25%' // 16:9
+        paddingTop: '56.25%', // 16:9
+        backgroundSize: 'contain'
     },
     cardContent: {
         flexGrow: 1
@@ -102,10 +102,10 @@ export default function Album() {
                 position='relative'
             >
                 <Toolbar className={classes.icon}>
-                    <MdOutlineBlurOn
+                    {/* <MdOutlineBlurOn
                         className='navbar-icon'
-                        style={{ color: '#5270d9' }}
-                    />
+                        style={{ color: 'orange' }}
+                    /> */}
                     <Typography variant='h5' color='inherit' noWrap>
                         {/* <h1
                             style={{
@@ -179,7 +179,7 @@ export default function Album() {
                                     </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Button variant='outlined' color='primary'>
+                                    <Button variant='contained' color='primary'>
                                         <Link
                                             color='inherit'
                                             href='https://github.com/sergethompson/atorable-react'
@@ -194,8 +194,8 @@ export default function Album() {
                 </div>
                 <Container className={classes.cardGrid} maxWidth='md'>
                     <VidATor
-                        width={'480'}
-                        height={'360'}
+                        width={'100%'}
+                        height={'280px'}
                         type={'video/mp4'}
                         magnetURI={bunnyMagnet}
                         ShowPrgrs={ShowPrgrs}
