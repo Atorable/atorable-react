@@ -1,9 +1,6 @@
 {
-    "name": "@atorable/atorable-react",
-    "version": "1.0.2",
-    "publishConfig": {
-        "@atorable:registry": "https://gitlab.com/api/v4/projects/34067611/packages/npm/"
-    },
+    "name": "atorable-react",
+    "version": "1.0.3",
     "description": "View/Use Webtorrent files (video, image, etc)",
     "author": {
         "name": "Atorable",
@@ -76,6 +73,10 @@
         "webtorrent": "^1.8.22"
     },
     "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/atorable"
+        },
         {
             "type": "github",
             "url": "https://github.com/sponsors/sergethompson"
