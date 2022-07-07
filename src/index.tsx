@@ -82,8 +82,7 @@ export const VidATorWrapped = (props: VideoTorPropsWrap) => {
             dwnldSpeed,
             downloaded,
             progress,
-            peers,
-            done
+            peers
         } = props,
         [urlState, updateUrl] = useState<string>()
     const videoElement = useRef(null)
@@ -99,7 +98,7 @@ export const VidATorWrapped = (props: VideoTorPropsWrap) => {
             }
         }
         return () => {}
-    }, [done])
+    }, [torrent])
 
     return (
         <div>
