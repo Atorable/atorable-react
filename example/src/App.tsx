@@ -209,9 +209,6 @@ export default function Album() {
           /> */}
                     {/* <br /> */}
                     {/* <ImgATor magnetURI={imgPath} style={{ border: 'solid' }} /> */}
-
-                    {/* <WrapATor magnetURI={imgPath}>
-          </WrapATor> */}
                 </Container>
                 {/* Card Container below */}
             </main>

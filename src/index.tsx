@@ -22,6 +22,8 @@ export const VideoDemo = VideoTest
 
 export const getTorrent = GetTorrent
 export const promiseTorrent = PromiseTorrent
+import { ATorStreamVideo_2 } from './stream'
+export const ATorStreamVideo = ATorStreamVideo_2
 
 export const ImgATor = (props: ImageTorrent) => {
     let { magnetURI, height, width, style, sizes, srcset, loading, showPrgrs } =
@@ -280,38 +282,6 @@ export const ATorWrap = (props: { children: any; magnetURI: string }) => {
         if (magnetURI) PromiseTorrent(magnetURI).then(mngTor)
         return () => {}
     }, [magnetURI])
-
-    return <Fragment>{childElements}</Fragment>
-}
-
-export const WrapATor = (props: any) => {
-    const { children, magnetURI } = props
-    let [childElements, updateChildElements] = useState<any>(),
-        mngTor = (torrent: WebTorrent.Torrent) => {
-            const chldElements = React.Children.map(children, (child) =>
-                React.cloneElement(child, {
-                    torrent: torrent,
-                    done: false
-                })
-            )
-            updateChildElements(chldElements)
-
-            torrent.on('done', () => {
-                const chldElements = React.Children.map(children, (child) => {
-                    let { torrent } = child.props
-                    return React.cloneElement(child, {
-                        torrent,
-                        done: true
-                    })
-                })
-                updateChildElements(chldElements)
-            })
-        }
-
-    useEffect(() => {
-        PromiseTorrent(magnetURI).then(mngTor)
-        return () => {}
-    }, [])
 
     return <Fragment>{childElements}</Fragment>
 }

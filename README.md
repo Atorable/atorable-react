@@ -23,9 +23,10 @@ The `atorable-react` package is a [React](https://reactjs.org/) component that p
 
 #### [Demo][atorable-react]
 
-## Updates / Upgrade to Version 1.0.0 (props)
+## Updates / Upgrade to Version 1.1.0 (props)
 magnetLink ==> magnetURI
 type: string ==> 'video/mp4' or 'video/webm' or 'video/ogg'
+WrapATor ==> ATorWrap
 
 Optional: added ability to set loading component
 ```bash 
@@ -96,11 +97,11 @@ const Example = (props: any) => {
 ```
 
 ## Advanced usage
-Make a component to get wrapped with `<ATorWrap>` and access props `torrent, dwnldSpeed, downloaded, progress, peers, done`, see [Webtorrent Docs][webtorrent-docs] for more info on dealing with torrent objects.
+Make a component to get wrapped with `<T>` and access props `torrent, dwnldSpeed, downloaded, progress, peers, done`, see [Webtorrent Docs][webtorrent-docs] for more info on dealing with torrent objects.
 
 ```tsx
 import React, { useEffect, useState Fragment } from 'react'
-import { ATorWrap } from 'atorable-react'
+import { T } from 'atorable-react'
 import hugeImage from './hugeImage.jpg';
 
 const WrappedImg = (props: any) => {
@@ -134,9 +135,9 @@ const WrappedImg = (props: any) => {
 const Example = (props: any) => {
   return (
     <div>
-      <ATorWrap magnetURI={hugeImage}>
+      <T magnetURI={hugeImage}>
         <WrappedImg width={'320'} height={'240'} style={{border: 'solid'}} />
-      </ATorWrap>
+      </T>
     </div>
   )
 }

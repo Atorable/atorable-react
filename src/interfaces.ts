@@ -9,10 +9,10 @@ export interface Image {
 }
 
 export interface TorrentUpdates {
-    dwnldSpeed: number
+    dwnldSpeed?: number
     downloaded?: number
-    peers: number
-    progress: number
+    peers?: number
+    progress?: number
     other?: any
 }
 
