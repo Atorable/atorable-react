@@ -21,6 +21,7 @@ export interface Video {
     height: string
     type: string // video/mp4 or video/webm or video/ogg
     autoplay?: boolean
+    aspectRatio?: number
 }
 
 export interface VideoTorProps extends Video {
