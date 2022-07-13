@@ -47,8 +47,8 @@ export const VidATorWrappedStr = (props: VideoTorPropsWrap) => {
         muted: true
     }
     const style = {
-        width,
-        height,
+        width: width || '100%',
+        height: height || '100%',
         position: 'absolute' as 'absolute',
         top: '0',
         left: '0'

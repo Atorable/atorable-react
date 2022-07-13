@@ -17,7 +17,7 @@
 # atorable-react
 
 High data costs? Slow PageSpeed? High server load? Need a solution for viral content?
-[Atorable.com](https://www.atorable.com/). Serve content better. 
+[Atorable.com](https://www.atorable.com/) moves more content faster. 
 
 The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent][webtorrent] magnet uri. As more users visit your site the more users serve up your content. More users makes faster downloads, less server load, lower data costs. PageSpeed will also increases by not blocking page load. Using [Webpack][webpack]? Try [atorable-loader][atorable-loader-npm].
 
@@ -58,6 +58,9 @@ const Example = (props: any) => {
       <ATorVid width={'320'} height={'240'} type={'video/mp4'} magnetURI={oceanFish} loading={<h2 style={{ color: 'orange' }}>Loading</h2>}/>
 
       <ATorVidStrm width={'320'} height={'240'} type={'video/mp4'} autoplay={true} magnetURI={bestMovieEverTribute} />
+
+      <ATorStreamVideo aspectRatio={3 / 4} type={'video/mp4'} magnetURI={bestMovieEverTribute} autoplay={true}/> 
+      // aspectRatio={height / width} aspectRatio works best for responsive videos
 
       <ATorImg magnetURI={hugeImage} style={{border: 'solid'}} />
     </div>
@@ -109,15 +112,15 @@ const WrappedImg = (props: any) => {
       [urlState, updateUrl] = useState<string>()
 
     useEffect(() => {
-      let file = torrent.files[0]
-      if (file) {
+      if (torrent) {
+        let file = torrent.files[0]
         file.getBlobURL((err, url) => {
             if (err) throw err
             updateUrl(url)
         })
       }
       return () => {}
-    }, [done])
+    }, [torrent])
 
   return (
     <Fragment>

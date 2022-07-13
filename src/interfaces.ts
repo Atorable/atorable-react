@@ -17,8 +17,8 @@ export interface TorrentUpdates {
 }
 
 export interface Video {
-    width: string
-    height: string
+    width?: string
+    height?: string
     type: string // video/mp4 or video/webm or video/ogg
     autoplay?: boolean
     aspectRatio?: number
