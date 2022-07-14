@@ -17,11 +17,11 @@
 # atorable-react
 
 High data costs? Slow PageSpeed? High server load? Need a solution for viral content?
-[Atorable.com](https://www.atorable.com/) moves more content faster. 
+[Atorable.com](https://www.atorable.com/) moves more content. 
 
 The `atorable-react` package is a [React](https://reactjs.org/) component that processes a [Webtorrent][webtorrent] magnet uri. As more users visit your site the more users serve up your content. More users makes faster downloads, less server load, lower data costs. PageSpeed will also increases by not blocking page load. Using [Webpack][webpack]? Try [atorable-loader][atorable-loader-npm].
 
-#### [Demo][atorable-react]
+#### [Demo][atorable]
 
 ## Updates / Upgrade to Version 1.1.0 (props)
 magnetLink ==> magnetURI
